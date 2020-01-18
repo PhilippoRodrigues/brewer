@@ -34,4 +34,11 @@ public class Cerveja {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Sku: %s - Nome: %s",
+							this.getSku(),
+							this.getNome());
+	}
 }
