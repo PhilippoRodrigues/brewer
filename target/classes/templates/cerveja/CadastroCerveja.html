@@ -3,6 +3,11 @@
 					xmlns:th="http://www.thymeleaf.org"
 					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					layout:decorator="layout/LayoutPadrao">
+
+<head>
+	<title>Cadastro de cerveja</title>
+</head>
+
 <body>
 	
 	<section layout:fragment="conteudo">
@@ -43,11 +48,19 @@
 		<div class="row">
 			<div class="col-sm-3 form-group">
 				<label for="estilo">Estilo</label>
-					<select id="estilo" class="form-control">
-						<option value="">Selecione o estilo</option>
-						<option value="1">Pale lager</option>
-					</select>
-			</div>
+					<div class="bw-field-action">
+						<select id="estilo" class="form-control">
+							<option value="">Selecione o estilo</option>
+							<option value="1">Pale lager</option>
+						</select>
+						
+						<div class="bw-field-action-icon">
+							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
+								<i class="glyphicon glyphicon-plus-sign bw-glyphicon-large"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 				
 			<div class="col-sm-3 form-group">
 				<label for="sabor">Sabor</label>
@@ -60,7 +73,7 @@
 			<div class="col-sm-3 form-group">
 				<label for="teor-alcoolico">Teor Alcoólico</label>
 				<div class="input-group">
-					<input id="teor-alcoolico" type="text" class="form-control" />
+					<input id="teor-alcoolico" type="text" class="form-control js-decimal" />
 					<div class="input-group-addon">%</div>
 				</div>
 			</div>
@@ -70,12 +83,12 @@
 					<div>
 						<div class="radio radio-inline">
 							<input id="origem" type="radio" name="origem" />
-							<label>Nacional</label>
+								<label>Nacional</label>
 						</div>
 							
 						<div class="radio radio-inline">
 							<input id="origem" type="radio" name="origem" />
-							<label>Internacional</label>
+								<label>Internacional</label>
 						</div>
 					</div>
 				</div>
@@ -86,7 +99,7 @@
 					<label for="preco">Preço</label>
 					<div class="input-group">
 						<div class="input-group-addon">R$</div>
-						<input id="preco" type="text" class="form-control" />
+						<input id="preco" type="text" class="form-control js-decimal" />
 					</div>
 				</div>
 				<div class="col-sm-3 form-group">
@@ -98,7 +111,7 @@
 				</div>
 				<div class="col-sm-3 form-group">
 					<label for="estoque">Estoque</label>
-					<input id="estoque" type="text" class="form-control" />
+					<input id="estoque" type="text" class="form-control js-plain" />
 				</div>
 				
 			</div>
@@ -110,6 +123,7 @@
 		</form>
 		</div>
 			
+		<div th:replace="estilo/CadastroRapidoEstilo.html :: modal"></div>
 	</section>
 		
 </body>
