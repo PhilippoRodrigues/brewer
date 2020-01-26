@@ -21,7 +21,7 @@ public class Cerveja {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long codigo;
 
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku; // identificador da cerveja
@@ -52,12 +52,12 @@ public class Cerveja {
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
 
-	public long getId() {
-		return id;
+	public long getCodigo() {
+		return codigo;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getSku() {
@@ -135,6 +135,8 @@ public class Cerveja {
 	public Estilo getEstilo() {
 		return estilo;
 	}
+	
+	//Getters and Setters
 
 	public void setEstilo(Estilo estilo) {
 		this.estilo = estilo;
@@ -165,8 +167,4 @@ public class Cerveja {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("Sku: %s - Nome: %s", this.getSku(), this.getNome());
-	}
 }
