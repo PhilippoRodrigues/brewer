@@ -19,106 +19,103 @@
 
 		<div class="container-fluid">
 		
-			<div class="alert  alert-danger  alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-					<i class="fa fa-exclamation-circle"></i> Já existe um produto com o nome informado.
-			</div>
-			
+		<th:block th:include="fragments/mensagemSucesso"></th:block>
+		
 		<form method="post" th:object="${cerveja}" class="form-vertical  js-form-loading">
-			
-		<div class="row">
-			<div class="col-sm-2 form-group">
-						
-				<label for="sku">SKU</label>
-				<input id="sku" type="text" class="form-control" th:field="*{sku}"/>
-				
-			</div>
-				
-			<div class="col-sm-10 form-group">	
-				<label for="nome">Nome</label>
-				<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
-			</div>
-				
-		</div>
 
-		<div class="form-group">
-			<label for="descricao">Descrição</label>
-			<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
-		</div>
-
-		<div class="row">
-			<div class="col-sm-3 form-group">
-				<label for="estilo">Estilo</label>
-					<div class="bw-field-action">
-						<select id="estilo" class="form-control" th:field="*{estilo}">
-							<option value="">Selecione o estilo</option>
-							<option th:each="estilo:${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}">Pale lager</option>
-						</select>
-						
-						<div class="bw-field-action-icon">
-							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
-								<i class="glyphicon glyphicon-plus-sign bw-glyphicon-large"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-				
-			<div class="col-sm-3 form-group">
-				<label for="sabor">Sabor</label>
-					<select id="sabor" class="form-control" th:field="*{sabor}">
-						<option value="">Selecione o sabor</option>
-						<option th:each="sabor:${sabores}" th:value="${sabor}" th:text="${sabor.descricao}">Adocicada</option>
-					</select>
-			</div>
-			
-			<div class="col-sm-3 form-group">
-				<label for="teor-alcoolico">Teor Alcoólico</label>
-				<div class="input-group">
-					<input id="teor-alcoolico" type="text" class="form-control js-decimal" th:field="*{teorAlcoolico}" />
-					<div class="input-group-addon">%</div>
-				</div>
-			</div>
-				
-			<div class="col-lg-3 col-sm-6 form-group">
-				<label for="origem">Origem</label>
-					<div>
-						<th:block th:each="origem:${origens}">
-						<div class="radio radio-inline">
-							<input th:id="|id_${origem}|" th:value="${origem}" type="radio" th:field="*{origem}" />
-								<label th:for="|id_${origem}|" th:text="${origem.descricao}">Nacional</label>
-						</div>
-						<th:block>
-					</div>
-				</div>
-			</div>
-				
+			<th:block th:include="fragments/mensagensErroValidacao"></th:block>
+		
 			<div class="row">
-				<div class="col-sm-3 form-group">
-					<label for="valor">Valor</label>
-					<div class="input-group">
-						<div class="input-group-addon">R$</div>
-						<input id="valor" type="text" class="form-control js-decimal" th:field="*{valor}" />
-					</div>
+				<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('sku')} ? has-error">
+							
+					<label for="sku" class="control-label">SKU</label>
+					<input id="sku" type="text" class="form-control" th:field="*{sku}"/>
+					
 				</div>
-				<div class="col-sm-3 form-group">
-					<label for="comissao">Comissão</label>
+					
+				<div class="col-sm-10 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">	
+					<label for="nome" class="control-label">Nome</label>
+					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
+				</div>
+					
+			</div>
+	
+			<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+				<label for="descricao" class="control-label">Descrição</label>
+				<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
+			</div>
+	
+			<div class="row">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('estilo')} ? has-error">
+					<label for="estilo" class="control-label">Estilo</label>
+						<div class="bw-field-action">
+							<select id="estilo" class="form-control" th:field="*{estilo}">
+								<option value="">Selecione o estilo</option>
+								<option th:each="estilo:${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}">Pale lager</option>
+							</select>
+							
+							<div class="bw-field-action-icon">
+								<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
+									<i class="glyphicon glyphicon-plus-sign bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('sabor')} ? has-error">
+					<label for="sabor" class="control-label">Sabor</label>
+						<select id="sabor" class="form-control" th:field="*{sabor}">
+							<option value="">Selecione o sabor</option>
+							<option th:each="sabor:${sabores}" th:value="${sabor}" th:text="${sabor.descricao}">Adocicada</option>
+						</select>
+				</div>
+				
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('teorAlcoolico')} ? has-error">
+					<label for="teor-alcoolico" class="control-label">Teor Alcoólico</label>
 					<div class="input-group">
-						<input id="comissao" type="text" class="form-control" th:field="*{comissao}" />
+						<input id="teor-alcoolico" type="text" class="form-control js-decimal" th:field="*{teorAlcoolico}" />
 						<div class="input-group-addon">%</div>
 					</div>
 				</div>
-				<div class="col-sm-3 form-group">
-					<label for="estoque">Estoque</label>
-					<input id="estoque" type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}" />
+					
+				<div class="col-lg-3 col-sm-6 form-group" th:classappend="${#fields.hasErrors('origem')} ? has-error">
+					<label for="origem" class="control-label">Origem</label>
+						<div>
+							<th:block th:each="origem:${origens}">
+							<div class="radio radio-inline">
+								<input th:id="|id_${origem}|" th:value="${origem}" type="radio" th:field="*{origem}" />
+									<label th:for="|id_${origem}|" th:text="${origem.descricao}">Nacional</label>
+							</div>
+							<th:block>
+						</div>
+					</div>
 				</div>
-				
-			</div>
-		
-			<div class="form-group">
-				<button class="btn  btn-primary" type="submit">Salvar</button>
-			</div>
+					
+				<div class="row">
+					<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+						<label for="valor" class="control-label">Valor</label>
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input id="valor" type="text" class="form-control js-decimal" th:field="*{valor}" />
+						</div>
+					</div>
+					<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('comissao')} ? has-error">
+						<label for="comissao" class="control-label">Comissão</label>
+						<div class="input-group">
+							<input id="comissao" type="text" class="form-control" th:field="*{comissao}" />
+							<div class="input-group-addon">%</div>
+						</div>
+					</div>
+					<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('quantidadeEstoque')} ? has-error">
+						<label for="estoque" class="control-label">Estoque</label>
+						<input id="estoque" type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}" />
+					</div>
+					
+				</div>
+			
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
 				
 		</form>
 		</div>
