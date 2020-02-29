@@ -6,7 +6,7 @@ Projeto que está sendo desenvolvido, de acordo com a evolução das aulas do cu
 
 *Funcionalidades:*
 - CRUD;
-- Gravação dos dados no Banco de Dados;
+- Gravação das informações no Banco de Dados;
 - Realizar pesquisas com filtros avançados;
 - Estilização de páginas de erro;
 - Deploy na nuvem;
