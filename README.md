@@ -2,6 +2,14 @@
 
 Projeto que está sendo desenvolvido, de acordo com a evolução das aulas do curso da Algaworks.
 
+````
+Executado com Tomcat server.
+````
+
+````
+Persistência no banco de dados utilizando Flyway (migrations).
+````
+
 **As funcionalidades do projeto descritas abaixo estão sendo implementadas aos poucos, à medida que eu avanço no curso de Spring, da Algaworks.**
 
 *Funcionalidades:*
