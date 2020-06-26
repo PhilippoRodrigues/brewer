@@ -14,6 +14,7 @@ Persistência no banco de dados utilizando Flyway (migrations).
 <br>
 <ul>
   <em>Funcionalidades:</em>
+  <br>
   <li>CRUD;</li>
 <li>Gravação das informações no Banco de Dados;</li>
 <li>Realizar pesquisas com filtros avançados;</li>
