@@ -9,7 +9,7 @@ Executado com Tomcat server.
 ````
 Persistência no banco de dados utilizando Flyway (migrations).
 ````
-
+<br>
 **As funcionalidades do projeto descritas abaixo estão sendo implementadas aos poucos, à medida que eu avanço no curso de Spring, da Algaworks.**
 
 *Funcionalidades:*
