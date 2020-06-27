@@ -26,5 +26,4 @@ public class FotoStorageRunnable implements Runnable {
 		//TODO: salvar a foto no sistema de arquivos (é a operação demorada)
 		resultado.setResult(new FotoDTO(nomeFoto, contentType));
 	}
-
 }
