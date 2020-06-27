@@ -20,9 +20,7 @@ public class FotoStorageRunnable implements Runnable {
 	@Override
 	public void run() {
 		
-		this.fotoStorage.salvarTemporariamente(files);
-		
-		String nomeFoto = files[0].getOriginalFilename();
+		String nomeFoto = this.fotoStorage.salvarTemporariamente(files);
 		String contentType = files[0].getContentType();
 		
 		//TODO: salvar a foto no sistema de arquivos (é a operação demorada)
