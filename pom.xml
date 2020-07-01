@@ -37,7 +37,7 @@
 		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
-		<log4j.version>2.8.2</log4j.version>
+		<log4j.version>2.13.3</log4j.version>
 
 		<!-- Logback -->
 		<logback.version>1.2.2</logback.version>
