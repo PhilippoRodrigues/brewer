@@ -64,12 +64,12 @@
 					<div class="col-sm-6 form-group">
 						<label for="origem" class="control-label">Origem</label>
 							<div>
-								<th:block th:each="origem:${origens}">
+								<th:block th:each="origem : ${origens}">
 									<div class="radio radio-inline">
 										<input th:id="|id_${origem}|" th:value="${origem}" type="radio" name="origem" />
 										<label th:for="|id_${origem}|" th:text="${origem.descricao}">Nacional</label>
 									</div>
-								<th:block>
+								</th:block>
 								<div class="radio radio-inline">
 									<input id="todasOrigens" type="radio" th:checked="*{origem} == null" name="origem" />
 									<label for="todasOrigens">Todas</label>
@@ -107,7 +107,7 @@
 						<tbody>
 							<tr th:each="cerveja : ${cervejas}">
 								<td class="text-center">
-									<img th:src="@{/fotos/temp/{foto}(foto=${cerveja.foto})}" class="img-responsive" />
+									<img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive" />
 								</td>
 								<td class="text-center" th:text="${cerveja.sku}">AA1234</td>
 								<td th:text="${cerveja.nome}">Cerveja Stella</td>
@@ -123,14 +123,14 @@
 									</a>
 								</td>
 							</tr>
+							<tr th:if="${#lists.isEmpty(cervejas)}">
+								<td class="text-center" colspan="7">Nenhuma cerveja encontrada</td>
+							</tr>
 						</tbody>
 						
 					</table>
 				</div>
 			</div>
-
-
-
 	</section>
 </body>
 </html>
