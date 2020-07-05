@@ -43,6 +43,7 @@ public class CervejasImpl implements CervejasQueries {
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
 	}
 	
+	//Total de registros pro filtro
 	private Long total(CervejaFilter filtro) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
