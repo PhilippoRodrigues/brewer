@@ -9,7 +9,7 @@ import com.algaworks.brewer.storage.FotoStorage;
 import com.algaworks.brewer.storage.local.FotoStorageLocal;
 
 @Configuration
-@ComponentScan(basePackageClasses = CadastroCervejaService.class)
+@ComponentScan(basePackageClasses = {CadastroCervejaService.class, FotoStorage.class})
 public class ServiceConfig {
 	
 	@Bean
