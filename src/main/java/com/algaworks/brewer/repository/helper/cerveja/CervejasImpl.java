@@ -24,24 +24,22 @@ import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class CervejasImpl implements CervejasQueries {
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
-
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Cerveja> filtrar(CervejaFilter filtro, Pageable pageable) {
-		
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Cerveja> query = builder.createQuery(Cerveja.class);
 		Root<Cerveja> cervejaEntity = query.from(Cerveja.class);
 		Predicate[] filtros = adicionarFiltro(filtro, cervejaEntity);
-		
+
 		query.select(cervejaEntity).where(filtros);
 		
 		TypedQuery<Cerveja> typedQuery =  (TypedQuery<Cerveja>) paginacaoUtil.prepararOrdem(query, cervejaEntity, pageable);
@@ -50,7 +48,6 @@ public class CervejasImpl implements CervejasQueries {
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
 	}
 	
-	//Total de registros pro filtro
 	private Long total(CervejaFilter filtro) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
@@ -66,6 +63,7 @@ public class CervejasImpl implements CervejasQueries {
 		List<Predicate> predicateList = new ArrayList<>();
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 
+		
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getSku())) {
 				predicateList.add(builder.equal(cervejaEntity.get("sku"), filtro.getSku()));
@@ -99,9 +97,9 @@ public class CervejasImpl implements CervejasQueries {
 		Predicate[] predArray = new Predicate[predicateList.size()];
 		return predicateList.toArray(predArray);
 	}
-	
+
 	private boolean isEstiloPresente(CervejaFilter filtro) {
-		return filtro.getEstilo() != null;
+		return filtro.getEstilo() != null && filtro.getEstilo().getCodigo() != null;
 	}
 
 	@Override
@@ -113,4 +111,5 @@ public class CervejasImpl implements CervejasQueries {
 					.getResultList();
 		return cervejasFiltradas;
 	}
+
 }

@@ -20,7 +20,7 @@ public class Estilo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long codigo;
+	private Long codigo;
 
 	@OneToMany(mappedBy = "estilo")
 	private List<Cerveja> cervejas;
@@ -29,11 +29,11 @@ public class Estilo implements Serializable {
 	@Size(max = 20, message = "O tamanho do nome não pode ser maior que {max} caracteres")
 	private String nome;
 
-	public long getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
