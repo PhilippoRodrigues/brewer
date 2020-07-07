@@ -26,13 +26,23 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.thymeleaf.extras.eclipse.core.ThymeleafBuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/org.thymeleaf.extras.eclipse.core.ThymeleafBuilder.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.thymeleaf.extras.eclipse.core.ThymeleafBuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/org.thymeleaf.extras.eclipse.core.ThymeleafBuilder (1).launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
