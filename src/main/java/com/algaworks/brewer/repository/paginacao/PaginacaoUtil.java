@@ -33,7 +33,7 @@ public class PaginacaoUtil {
 	public TypedQuery<?> prepararOrdem(CriteriaQuery<?> query, Root<?> fromEntity, Pageable pageable) {
 		Sort sort = pageable.getSort();
 
-		if (sort != null) {
+		if (sort != null && sort.isSorted()) {
 			CriteriaBuilder builder = manager.getCriteriaBuilder();
 			Sort.Order sortOrder = sort.iterator().next();
 			String property = sortOrder.getProperty();
