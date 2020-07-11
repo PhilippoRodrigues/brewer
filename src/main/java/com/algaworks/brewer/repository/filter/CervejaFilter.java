@@ -60,6 +60,4 @@ public class CervejaFilter {
 	public void setValorAte(BigDecimal valorAte) {
 		this.valorAte = valorAte;
 	}
-	
-	
 }
