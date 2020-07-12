@@ -30,6 +30,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.algaworks.brewer.controller.CervejasController;
 import com.algaworks.brewer.converter.EstiloConverter;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -63,6 +64,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		
 		engine.addDialect(new LayoutDialect());
 		engine.addDialect(new BrewerDialect());
+		engine.addDialect(new DataAttributeDialect());
 		return engine;
 	}
 
