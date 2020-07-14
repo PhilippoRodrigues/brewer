@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.model.TipoPessoa;
 import com.algaworks.brewer.repository.Estados;
+import com.algaworks.brewer.service.CadastroClienteService;
 
 @Controller
 @RequestMapping("/clientes")
@@ -20,6 +21,9 @@ public class ClientesController {
 	
 	@Autowired
 	private Estados estados;
+	
+	@Autowired
+	CadastroClienteService cadastroClienteService;
 	
 	//Quando acessar a URL /clientes/novo, vai retornar a página HTML cliente/CadastroCliente
 	
@@ -37,6 +41,7 @@ public class ClientesController {
 		if(result.hasErrors()) {
 			return novo(cliente);
 		}
+		cadastroClienteService.salvar(cliente);
 		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}
