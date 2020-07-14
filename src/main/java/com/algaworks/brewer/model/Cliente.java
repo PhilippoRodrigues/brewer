@@ -1,34 +1,70 @@
 package com.algaworks.brewer.model;
 
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-public class Cliente {
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import com.algaworks.brewer.model.validation.ClienteGroupSequenceProvider;
+import com.algaworks.brewer.model.validation.group.CnpjGroup;
+import com.algaworks.brewer.model.validation.group.CpfGroup;
+
+@Entity
+@Table(name="cliente")
+@GroupSequenceProvider(ClienteGroupSequenceProvider.class)
+public class Cliente implements Serializable {
 	
-	@NotBlank(message="Nome é obrigatório")
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long codigo;
+	
+	@NotBlank(message="O nome é obrigatório")
 	private String nome;
 	
-	@NotBlank(message="CPF/CNPJ é obrigatório")
-	private String cpf;
+	@NotNull(message="TipoPessoa é obrigatório")
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipo_pessoa")
+	private TipoPessoa tipoPessoa;
 	
-	@NotBlank(message="Telefone é obrigatório")
+	@NotBlank(message="CPF/CNPJ é obrigatório")
+	@CPF(groups=CpfGroup.class)
+	@CNPJ(groups=CnpjGroup.class)
+	@Column(name="cpf_cnpj")
+	private String cpfOuCnpj;
+	
 	private String telefone;
 	
-	@NotBlank(message="E-mail é obrigatório")
+	@Email(message="e-mail inválido")
 	private String email;
 	
-	@NotBlank(message="Logradouro é obrigatório")
-	private String logradouro;
-	
-	@NotBlank(message="Número é obrigatório")
-	private String numero;
-	
-	@NotBlank(message="Complemento é obrigatório")
-	private String complemento;
-	
-	@NotBlank(message="CEP é obrigatório")
-	private String cep;
+	@Embedded
+	private Endereco endereco;
 	
 	
+	
+	public Long getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getNome() {
 		return nome;
@@ -37,13 +73,21 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getCpf() {
-		return cpf;
+	
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+	
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
 	public String getTelefone() {
@@ -62,35 +106,36 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 }

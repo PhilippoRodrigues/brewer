@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" 
+					xmlns:th="http://www.thymeleaf.org"
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					layout:decorate="layout/LayoutPadrao">
+
+<head>
+	<title>Cadastro de estilo</title>
+</head>
+
+<body>
+	
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>Cadastro de estilo</h1>
+					</div>
+			
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/estilos}">
+								<i class="glyphicon glyphicon-plus-sign"></i><span class="hidden-xs hidden-sm"> Novo estilo</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="container-fluid">
+		
+			<th:block th:include="fragments/mensagemSucesso"></th:block>
+			
+			
+		<form method="post" th:object="${estilo}" class="form-vertical  js-form-loading">
+			
+			<th:block th:include="fragments/mensagensErroValidacao"></th:block>
+			
+			<div class="row">
+				<div class="col-sm-12 form-group bw-required" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+							
+					<label for="nome" class="control-label">Nome</label>
+					<input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
+					
+				</div>
+			</div>
+			
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+				
+		</form>
+		</div>
+	</section>
+		
+</body>
+</html>
