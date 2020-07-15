@@ -223,7 +223,5 @@
 		    <version>${thymeleaf-extras-data-attribute.version}</version>
 		    <scope>compile</scope>
 		</dependency>
-		
 	</dependencies>
-
 </project>

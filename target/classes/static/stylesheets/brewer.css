@@ -119,6 +119,31 @@
 	text-align: center;
 }
 
-.table-cervejas-col-acoes .table-estilos-col-acoes {
+.table-cervejas-col-acoes, .table-estilos-col-acoes, .table-col-acoes {
 	width: 80px;
 }
+
+/* Colunas - Pesquisa de Clientes */
+
+/* .table-clientes-col-nome {
+	
+} */
+
+.table-clientes-col-tipo-pessoa {
+	width: 120px;
+	text-align: center;
+}
+
+.table-clientes-col-cpf-cnpj, .table-clientes-col-cidade-estado, .table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
+}
+
+/* .table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-cidade-estado{
+	
+} */
