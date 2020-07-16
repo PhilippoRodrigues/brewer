@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,6 +29,7 @@ public class Cidade implements Serializable {
 	@JsonIgnore
 	private Estado estado;
 	
+	@NotBlank(message="Nome da cidade é obrigatório")
 	private String nome;
 
 	public Long getCodigo() {

@@ -2,33 +2,51 @@ package com.algaworks.brewer.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.model.Cidade;
 import com.algaworks.brewer.repository.Cidades;
+import com.algaworks.brewer.repository.Estados;
+import com.algaworks.brewer.service.CadastroCidadeService;
+import com.algaworks.brewer.service.exception.CidadeJaCadastradaException;
 
 @Controller
 @RequestMapping("/cidades")
 public class CidadesController {
-	
+
+	@Autowired
+	private Estados estados;
+
 	@Autowired
 	private Cidades cidades;
-	
-	//Quando acessar a URL /cervejas/novo, vai retornar a página cerveja/CadastroCerveja
-	
+
+	@Autowired
+	CadastroCidadeService cadastroCidadeService;
+
+	// Quando acessar a URL /cervejas/novo, vai retornar a página
+	// cerveja/CadastroCerveja
+
 	@RequestMapping("/novo")
-	public String novo(Cidade cidade) {
-		return "cidade/CadastroCidade";
+	public ModelAndView novo(Cidade cidade) {
+		ModelAndView mv = new ModelAndView("cidade/CadastroCidade");
+		mv.addObject("estados", estados.findAll());
+		return mv;
 	}
-	
-	@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(
-			@RequestParam(name="estado", defaultValue="-1") Long codigoEstado){
+			@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -36,16 +54,21 @@ public class CidadesController {
 		}
 		return cidades.findByEstadoCodigo(codigoEstado);
 	}
+
+	@PostMapping("/novo")
+	public ModelAndView salvar(@Valid Cidade cidade, BindingResult result, RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			return novo(cidade);
+		}
+
+		try {
+			cadastroCidadeService.salvar(cidade);
+		} catch (CidadeJaCadastradaException e) {
+			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			return novo(cidade);
+		}
+
+		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
+		return new ModelAndView("redirect:/cidades/novo");
+	}
 }
-	
-//	@RequestMapping(value = "/cidades/novo", method = RequestMethod.POST)
-//	public String cadastrar(@Valid Cidade cidade, BindingResult result, Model model, RedirectAttributes attributes) {
-//		
-//		if(result.hasErrors()) {
-//			return novo(cidade);
-//		}
-//		
-//		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
-//		System.out.println("Cidade: " + cidade.getNome());
-//		return "redirect:/cidades/novo";
-//	}
