@@ -45,7 +45,7 @@ public class ClientesImpl implements ClientesQueries {
 		CriteriaQuery<Cliente> query = builder.createQuery(Cliente.class);
 		Root<Cliente> clienteEntity = query.from(Cliente.class);
 
-		Join<Cliente, Endereco> enderecoCliente = clienteEntity.join("endereco", JoinType.LEFT);
+		Join<Cliente, Endereco> enderecoCliente = clienteEntity.join("endereco");
 		Fetch<Endereco, Cidade> cidadeCliente = enderecoCliente.fetch("cidade", JoinType.LEFT);
 		Fetch<Cidade, Estado> estadoCliente = cidadeCliente.fetch("estado", JoinType.LEFT);
 
