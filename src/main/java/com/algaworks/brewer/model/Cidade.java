@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,6 +25,7 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotNull(message = "Estado é obrigatório")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="codigo_estado")
 	@JsonIgnore
@@ -54,6 +56,10 @@ public class Cidade implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public boolean temEstado() {
+		return estado != null;
 	}
 
 	@Override
