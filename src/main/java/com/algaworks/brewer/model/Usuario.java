@@ -1,24 +1,60 @@
 package com.algaworks.brewer.model;
 
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
-public class Usuario {
-	
-	@NotBlank(message="Nome é obrigatório")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long codigo;
+
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
-	
-	@NotBlank(message="E-mail é obrigatório")
+
+	@NotBlank(message = "E-mail é obrigatório")
+	@Email
 	private String email;
-	
-	@NotBlank(message="Data de nascimento é obrigatório")
-	private String dataDeNascimento;
-	
-	@NotBlank(message="Senha é obrigatório")
+
 	private String senha;
-	
-	@NotBlank(message="Confirmação de senha é obrigatório")
-	private String confirmacaoDeSenha;
-	
+
+	private Boolean ativo;
+
+	@NotNull(message = "Data de nascimento é obrigatório")
+	@Column(name = "data_nascimento")
+	private LocalDate dataNascimento;
+
+	@ManyToMany
+	@NotNull(message = "Selecione pelo menos um grupo")
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), 
+	inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+	private List<Grupo> grupos;
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getNome() {
 		return nome;
@@ -36,27 +72,60 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getDataDeNascimento() {
-		return dataDeNascimento;
-	}
-	
-	public void setDataDeNascimento(String dataDeNascimento) {
-		this.dataDeNascimento = dataDeNascimento;
-	}
-	
 	public String getSenha() {
 		return senha;
 	}
-	
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	public String getConfirmacaoDeSenha() {
-		return confirmacaoDeSenha;
+
+	public Boolean getAtivo() {
+		return ativo;
 	}
-	
-	public void setConfirmacaoDeSenha(String confirmacaoDeSenha) {
-		this.confirmacaoDeSenha = confirmacaoDeSenha;
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 }
