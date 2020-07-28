@@ -31,9 +31,7 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 			valido = ambosSaoNull(valorAtributo, valorAtributoConfirmacao) || 
 					ambosSaoIguais(valorAtributo, valorAtributoConfirmacao);
 		} catch (Exception e) {
-
 			throw new RuntimeException("Erro na recuperação de valores dos atributos", e);
-			
 		}
 
 		if(!valido) {
