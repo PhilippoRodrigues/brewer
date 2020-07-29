@@ -39,6 +39,7 @@ import com.algaworks.brewer.controller.CervejasController;
 import com.algaworks.brewer.converter.CidadeConverter;
 import com.algaworks.brewer.converter.EstadoConverter;
 import com.algaworks.brewer.converter.EstiloConverter;
+import com.algaworks.brewer.converter.GrupoConverter;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -100,6 +101,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		conversionService.addConverter(new EstiloConverter());
 		conversionService.addConverter(new CidadeConverter());
 		conversionService.addConverter(new EstadoConverter());
+		conversionService.addConverter(new GrupoConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);

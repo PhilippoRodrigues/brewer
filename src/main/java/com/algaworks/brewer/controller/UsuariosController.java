@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.repository.Grupos;
 import com.algaworks.brewer.service.CadastroUsuarioService;
 import com.algaworks.brewer.service.exception.EmailJaCadastradoException;
 
@@ -22,11 +23,15 @@ public class UsuariosController {
 	@Autowired
 	CadastroUsuarioService cadastroUsuarioService;
 	
+	@Autowired
+	Grupos grupos;
+	
 	//Quando acessar a URL /clientes/novo, vai retornar a página HTML cliente/CadastroCliente
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
+		mv.addObject("grupos", grupos.findAll());
 		return mv;
 	}
 	

@@ -139,11 +139,13 @@
 	text-align: right;
 }
 
-/* .table-clientes-col-telefone {
-	width: 140px;
-	text-align: right;
-}
+/*
+##############
+# CUSTOMIZAÇÃO DE COMPONENTES
+##############
+*/
 
-.table-clientes-col-cidade-estado{
-	
-} */
+.checkbox input[type="checkbox"]:checked + input + label::after {
+	font-family: "FontAwesome";
+	content: "\f00c"; 
+}
