@@ -82,6 +82,35 @@ Brewer.MaskDate = (function() {
 	return MaskDate;
 }());
 
+Brewer.Security = (function(){
+	
+	function Security(){
+		this.token = $('input[name=_csrf]').val();
+		this.header = $('input[name=_csrf_header]').val();
+	}
+	
+	//Função para habilitar a função acima
+	
+	Security.prototype.enable = function(){
+		//toda vez que for enviado uma requisição AJAX, será redefinido o token request
+		
+		$(document).ajaxSend(function(event, jqxhr, settings) {
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+		
+		//O contexto da implementação da função acima está sendo executado dentro dessa. 
+		//Dessa forma, o this refere-se ao contexto dessa função (Security.prototype.enable).
+		
+		/*
+		Para que o contexto seja executado dentro da função Security, é implementado o método bind(), 
+		que serve para trocar o contexto da função Security.prototype.enable para o contexto da função Security.
+		*/
+	}
+	
+	return Security;
+	
+}());
+
 $(function() {
 
 	var maskMoney = new Brewer.MaskMoney();
@@ -95,4 +124,7 @@ $(function() {
 	
 	var maskDate = new Brewer.MaskDate();
 	maskDate.enable();
+	
+	var security = new Brewer.Security();
+	security.enable();
 });

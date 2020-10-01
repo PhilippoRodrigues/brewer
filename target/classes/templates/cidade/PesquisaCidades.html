@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/LayoutPadrao}"
-	xmlns:brewer="http://brewer.algaworks.com">
+	xmlns:brewer="http://brewer.algaworks.com"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
 <head>
 	<title>Pesquisa de clientes</title>
@@ -18,7 +19,7 @@
 						<h1>Pesquisa de cidades</h1>
 					</div>
 					
-					<div class="col-sm-2">
+					<div class="col-sm-2" sec:authorize-url="/cidades/novo">
 						<div class="aw-page-header-controls">
 							<a class="btn  btn-default" th:href="@{/cidades/novo}">
 								<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Nova cidade</span>
@@ -63,7 +64,7 @@
 								<th class="text-right table-cidades-col-estado">
 									<brewer:order page="${pagina}" field="estado" text="Estado"/>
 								</th>
-								<th class="table-col-acoes"></th>
+								<th class="table-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_CIDADE')"></th>
 							</tr>
 						</thead>
 						
@@ -71,7 +72,7 @@
 							<tr th:each="cidade : ${pagina.conteudo}">
 								<td class="text-left" th:text="${cidade.nome}"></td>
 								<td class="text-right" th:text="${cidade.estado.nome}"></td>
-								<td class="text-center">
+								<td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_CIDADE')">
 									<a class="btn  btn-link btn-xs" title="Editar"> 
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
