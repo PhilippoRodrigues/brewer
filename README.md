@@ -1,7 +1,5 @@
 # brewer
 
-Projeto que está sendo desenvolvido, de acordo com a evolução das aulas do curso da Algaworks.
-
 ````
 Executado com Tomcat server.
 ````
@@ -9,10 +7,6 @@ Executado com Tomcat server.
 ````
 Persistência no banco de dados utilizando Flyway (migrations).
 ````
-<br>
-<p><b>As funcionalidades do projeto descritas abaixo estão sendo implementadas aos poucos, à medida que eu avanço no curso de Spring, da Algaworks.</b></p>
-<br>
-
 <p><em>Funcionalidades:</em></p>
 
 <ul>
