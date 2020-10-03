@@ -12,17 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.algaworks.brewer.validation.AtributoConfirmacao;
 
+@AtributoConfirmacao(atributo="senha", atributoConfirmacao="confirmacaoSenha", message="Senhas não conferem")
 @Entity
 @Table(name = "usuario")
-@AtributoConfirmacao(atributo="senha", atributoConfirmacao="confirmacaoSenha", message="Senhas não conferem")
+@DynamicUpdate
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -47,6 +51,11 @@ public class Usuario implements Serializable {
 
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
+	
+	@PreUpdate
+	private void PreUpdate() {
+		this.confirmacaoSenha = senha;
+	}
 
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany

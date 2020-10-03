@@ -41,4 +41,10 @@ public class CadastroUsuarioService {
 		
 		usuarios.save(usuario);
 	}
+
+	//Como esse método vai alterar o conteúdo no BD, incluir a annotation @Transactional
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario statusUsuario) {
+		statusUsuario.executar(codigos, usuarios);
+	}
 }

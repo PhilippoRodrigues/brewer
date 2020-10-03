@@ -4,6 +4,7 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.algaworks.brewer.config.JPAConfig;
@@ -36,7 +37,10 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 //		characterEncodingFilter.setForceEncoding(true);		
 		
 //		return new Filter[]{characterEncodingFilter};
-		return new Filter[] {};
+		
+		@SuppressWarnings("deprecation")
+		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
+		return new Filter[] {httpPutFormContentFilter};
 	}
 
 	@Override
