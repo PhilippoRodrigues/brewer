@@ -82,14 +82,14 @@
 								</th>
 								<th>Nome</th>
 								<th>Email</th>
-								<!--  <th>Grupo</th>-->
+								<th>Grupo</th>
 								<th>Status</th>
 								<th class="table-col-acoes"></th>
 							</tr>
 						</thead>
 						
 						<tbody>
-							<tr th:each="usuario : ${usuarios}">
+							<tr th:each="usuario : ${pagina.conteudo}">
 								<td>
 									<div class="checkbox aw-checkbox-no-margin" 
 									th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
@@ -99,9 +99,9 @@
 								</td>
 								<td th:text="${usuario.nome}"></td>
 								<td th:text="${usuario.email}"></td>
-								<!-- <td>
-									<span th:each="grupo : ${usuario.grupos}" th:text="|${grupos.nome}${grupoStat.last ? '' : ', '}|"></span>
-								</td> -->
+								<td>
+									<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+								</td>
 								<td>
 									<th:block th:if="${usuario.ativo}">
 										<span class="label label-success" th:text="${usuario.ativo} ? Ativo : Inativo">Ativo</span>
@@ -120,12 +120,13 @@
 									</a>
 								</td>
 							</tr>
-							<tr th:if="${usuarios.empty}">
-								<td colspan="4">Nenhum usuário encontrado</td>
+							<tr th:if="${pagina.vazia}">
+								<td colspan="6">Nenhum usuário encontrado</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+				<brewer:pagination page="${pagina}" />
 			</div>
 		</section>
 			<th:block layout:fragment="javascript-extra">

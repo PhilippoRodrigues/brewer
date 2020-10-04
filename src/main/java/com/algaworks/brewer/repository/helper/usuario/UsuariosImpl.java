@@ -12,12 +12,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,15 +47,15 @@ public class UsuariosImpl implements UsuariosQueries {
 		CriteriaQuery<Usuario> query = builder.createQuery(Usuario.class);
 		Root<Usuario> usuarioEntity = query.from(Usuario.class);
 
-		//PESQIUSAR
-		//criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		
 		Predicate[] filtros = adicionarFiltro(filtro, usuarioEntity);
-		
+
 		query.select(usuarioEntity).where(filtros);
-		
+
 		TypedQuery<Usuario> typedQuery =  (TypedQuery<Usuario>) paginacaoUtil.prepararOrdem(query, usuarioEntity, pageable);
 		typedQuery = (TypedQuery<Usuario>) paginacaoUtil.prepararIntervalo(typedQuery, pageable);
+		
+		List<Usuario> filtrados = typedQuery.getResultList();
+		filtrados.forEach(u -> Hibernate.initialize(u.getGrupos()));
 		
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
 	}
@@ -74,8 +74,9 @@ public class UsuariosImpl implements UsuariosQueries {
 	private Predicate[] adicionarFiltro(UsuarioFilter filtro, Root<Usuario> usuarioEntity) {
 		List<Predicate> predicateList = new ArrayList<>();
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
+//		CriteriaQuery<UsuarioGrupo> query = builder.createQuery(UsuarioGrupo.class);
+//		Root<UsuarioGrupo> usuarioGrupoEntity = query.from(UsuarioGrupo.class);
 		
-		//DetachedCriteria dcg = DetachedCriteria.forClass(Grupo.class);
 		
 		if (filtro != null) {
 			
@@ -89,45 +90,35 @@ public class UsuariosImpl implements UsuariosQueries {
 				//predicateList.add((Predicate) Restrictions.ilike("email", filtro.getEmail(), MatchMode.START));
 			}
 			
-			//O LEFT_OUTER_JOIN serve para realizar consultas em relacionamentos ManyToMany
+			//NÃO ESTÁ EXIBINDO O FILTRO POR GRUPOS NA TELA
 			
-			//dcg.createAlias("grupo", "g", JoinType.LEFT_OUTER_JOIN);
 			if (filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()) {
 				
-				//List<Criterion> subqueries = new ArrayList<>();
-						
-				//Está transformando a string em um iterador, que vai ser mapeado para Long em Grupo.
-				//Na classe Grupo, irá pegar o código e chama o toArray() para o for funcionar
-//				for(Long codigoGrupo : filtro.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {
-//					
+				List<Criterion> subqueries = new ArrayList<>();
+//				//Está transformando a string em um iterador, que vai ser mapeado para Long em Grupo.
+//				//Na classe Grupo, irá pegar o código e chama o toArray() para o for funcionar
+				for(Long codigoGrupo : filtro.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {
+					
+					DetachedCriteria dc = DetachedCriteria.forClass(UsuarioGrupo.class);
+					//CriteriaQuery<UsuarioGrupo> queryGrupo = builder.createQuery(UsuarioGrupo.class);
+					
+					dc.add(Restrictions.eq("id.grupo.codigo", codigoGrupo));
+					dc.setProjection(Projections.property("id.usuario"));
+					
+					subqueries.add(Subqueries.propertyIn("codigo", dc));
+							
 //					//Criar o select de um grupo específico
-//					DetachedCriteria dc = DetachedCriteria.forClass(UsuarioGrupo.class);
+//					Root<UsuarioGrupo> grupoEntity = query.from(UsuarioGrupo.class);
 //					//Vai navegar até a variável codigo da entidade Grupo e obter o id correspondente da pesquisa
-//					dc.add(Restrictions.eq("id.grupo.codigo", codigoGrupo));
-//					dc.setProjection(Projections.property("id.usuario"));
+//					((DetachedCriteria) grupoEntity).add(Restrictions.eq("id.grupo.codigo", codigoGrupo));
+//					((DetachedCriteria) grupoEntity).setProjection(Projections.property("id.usuario"));
 //					
 //					//Retornar o código do usuário
-//					subqueries.add(Subqueries.propertyIn("codigo", dc));
-//				}
-				
-				//Criar um array de Criterion para que seja passado para a implementação seguinte, que necessita de um array
-				//Criterion[] criterions = new Criterion[subqueries.size()];
-				
-				//Obter a criteria principal
-				//dcg.add(Restrictions.and(subqueries.toArray(criterions)));
+//					predicateList.add((Predicate) Subqueries.propertyIn("codigo", (DetachedCriteria) grupoEntity));
+				}
+//				Criterion[] criterions = new Criterion[subqueries.size()];
+//				criteria.add(Restrictions.and(subqueries.toArray(criterions)));
 			}
-//
-//			if (filtro.getOrigem() != null) {
-//				predicateList.add(builder.equal(usuarioEntity.get("origem"), filtro.getOrigem()));
-//			}
-//
-//			if (filtro.getValorDe() != null) {
-//				predicateList.add(builder.equal(usuarioEntity.get("valor"), filtro.getValorDe()));
-//			}
-//
-//			if (filtro.getValorAte() != null) {
-//				predicateList.add(builder.equal(usuarioEntity.get("valor"), filtro.getValorAte()));
-//			}
 		}
 		Predicate[] predArray = new Predicate[predicateList.size()];
 		return predicateList.toArray(predArray);

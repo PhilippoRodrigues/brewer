@@ -76,11 +76,11 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(UsuarioFilter filtro, BindingResult result, 
-			@PageableDefault(size=2) Pageable pageable, HttpServletRequest httpServletRequest) {
+	public ModelAndView pesquisar(UsuarioFilter filtro, 
+			@PageableDefault(size=3) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("/usuario/PesquisaUsuarios");
-		mv.addObject("usuarios", usuarios.findAll());
 		mv.addObject("grupos", grupos.findAll());
+		//mv.addObject("usuarios", usuarios.filtrar(filtro, pageable));
 		
 		PageWrapper<Usuario> paginaWrapper = new PageWrapper<>(usuarios.filtrar(filtro, pageable), httpServletRequest);
 		mv.addObject("pagina", paginaWrapper);
