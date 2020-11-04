@@ -33,12 +33,16 @@ public class TabelaItensVenda {
 		ItemVenda itemVenda = new ItemVenda();
 		itemVenda.setCerveja(cerveja);
 		itemVenda.setQuantidade(quantidade);
-		//itemVenda.setValorUnitario(cerveja.getValor());
+		itemVenda.setValorUnitario(cerveja.getValor());
 		
 		itens.add(itemVenda);
 	}
 	
 	public int total() {
 		return itens.size();
+	}
+
+	public Object getItens() {
+		return itens;
 	}
 }
