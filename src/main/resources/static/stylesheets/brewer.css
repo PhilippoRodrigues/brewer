@@ -1,53 +1,41 @@
-@charset "UTF-8";
-
 /*
-#################
-
+######################
 # UTILIDADES
-
-#################
+######################
 */
-
-.bw-glyphicon-large{
+.bw-glyphicon-large {
 	font-size: 18px;
 }
 
-.bw-required > .control-label:after{
-	content: "*" ;
-	color: red;
+.bw-required>.control-label:after {
+	content: "*";
 }
 
-
 /*
-#################
-
+######################
 # COMPONENTES
-
-#################
+######################
 */
 
 /* Field Action */
-
-.bw-field-action{
+.bw-field-action {
 	display: flex;
 }
 
-.bw-field-action-icon{
+.bw-field-action__icon {
 	margin: 6px 0 0 5px;
 }
 
 /* Upload */
-
-.bw-upload{
+.bw-upload {
 	padding: 15px;
 	border: 1px dashed #ddd;
 	border-radius: 4px;
 	background: #fafafa;
-	
 	text-align: center;
 }
 
-.bw-upload-form-file{
+.bw-upload-form-file {
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
@@ -55,7 +43,7 @@
 	margin-bottom: 1px;
 }
 
-.bw-upload-form-file > input[type=file]{
+.bw-upload-form-file>input[type=file] {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -63,13 +51,11 @@
 	width: 100%;
 	opacity: 0;
 	cursor: pointer;
-	
 	font-size: 500px;
 }
 
-/* Tabela simples */
-
-.bw-tabela-simples{
+/* Tabela Simples */
+.bw-tabela-simples {
 	margin-top: 15px;
 }
 
@@ -85,16 +71,20 @@
 }
 
 /*
-##############
+###################
 # PÁGINAS DO SISTEMA
-##############
+###################
 */
 
-/* Colunas - Pesquisa de Cervejas */
+/* Colunas comuns */
+.table-col-acoes {
+	width: 80px;
+}
 
+/* Colunas - Pesquisa de Cervejas */
 .table-cervejas-col-foto {
 	min-width: 50px;
-	width: 50px;
+	width: 50px
 }
 
 .table-cervejas-col-sku {
@@ -102,9 +92,9 @@
 	text-align: center;
 }
 
-/* .table-cervejas-col-nome {
-	min-width: 200px;
-} */
+.table-cervejas-col-nome {
+	
+}
 
 .table-cervejas-col-estilo {
 	width: 120px;
@@ -116,38 +106,60 @@
 
 .table-cervejas-col-valor {
 	width: 100px;
-	text-align: center;
+	text-align: right;
 }
 
-.table-cervejas-col-acoes, .table-estilos-col-acoes, .table-col-acoes {
+.table-cervejas-col-acoes {
+	width: 80px;
+}
+
+/* Colunas - Pesquisa de Estilos */
+.table-estilos-col-codigo {
 	width: 80px;
 }
 
 /* Colunas - Pesquisa de Clientes */
-
-/* .table-clientes-col-nome {
+.table-clientes-col-nome {
 	
-} */
+}
 
 .table-clientes-col-tipo-pessoa {
 	width: 120px;
 	text-align: center;
 }
 
-.table-clientes-col-cpf-cnpj, .table-clientes-col-cidade-estado, .table-clientes-col-telefone {
+.table-clientes-col-cpf-cnpj {
 	width: 140px;
 	text-align: right;
 }
 
-/* Colunas - Pesquisa de Usuários */
+.table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
+}
 
+.table-clientes-col-cidade-estado {
+	width: 140px;
+	text-align: right;
+}
+
+/* Colunas - Pesquisa de cidades */
+.table-cidades-col-nome {
+	
+}
+
+.table-cidades-col-estado {
+	width: 140px;
+	text-align: right;
+}
+
+/* Colunas - Pesquisa de usuários */
 .table-usuarios-col-status {
 	width: 30px;
 	text-align: center;
 }
 
-/* Tela Vendas */
-
+/* Tabela Cervejas página de Venda */
 .bw-tabela-cervejas {
 	margin-bottom: 15px;
 }
@@ -161,16 +173,14 @@
 	color: #555;
 }
 
-
 /*
-##############
+######################################
 # CUSTOMIZAÇÃO DE COMPONENTES
-##############
+######################################
 */
-
-.checkbox input[type="checkbox"]:checked + input + label::after {
-	font-family: "FontAwesome";
-	content: "\f00c"; 
+.checkbox input[type="checkbox"]:checked+input+label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c";
 }
 
 /* Easy Autocomplete */
@@ -185,10 +195,9 @@
 
 /* Tabela Item */
 .bw-tabela-item {
-	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
-	
+	position: relative;
+	/* Para que o painel de exclusão apareça dentro da linha */
 	padding: 15px 0;
-	
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -198,7 +207,7 @@
 .bw-tabela-item:after {
 	clear: both;
 	display: block;
-    content: "";
+	content: "";
 }
 
 .bw-tabela-item ~ .bw-tabela-item {
@@ -212,7 +221,6 @@
 .bw-tabela-item__coluna--foto {
 	float: left;
 	width: 60px;
-	
 	text-align: center;
 }
 
@@ -256,18 +264,43 @@
 	font-size: 1.6em;
 }
 
-@media (min-width: 768px) { 
-	/* screen-sm-min */
-	
+.bw-tabela-item__painel-exclusao {
+	position: absolute;
+	top: 0;
+	right: 100000px;
+	height: 100%;
+	width: 50%;
+	text-align: center;
+	padding-top: 35px;
+	background-color: #f0ad4e;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.solicitando-exclusao .bw-tabela-item__painel-exclusao {
+	right: 0;
+	opacity: 1;
+}
+
+.bw-tabela-item__titulo-exclusao {
+	display: block;
+	margin-bottom: 5px;
+	color: #fff;
+	font-size: 1.3em;
+}
+
+@media ( min-width : 768px) { /* screen-sm-min */
+	.bw-tabela-item__painel-exclusao {
+		width: 40%;
+		padding-top: 10px;
+	}
 	.bw-tabela-item__coluna {
 		float: left;
 		margin-left: 0px;
 	}
-	
 	.bw-tabela-item__coluna--detalhes {
 		width: calc(70% - 30px);
 	}
-	
 	.bw-tabela-item__coluna--valores {
 		width: calc(30% - 30px);
 		text-align: right;
