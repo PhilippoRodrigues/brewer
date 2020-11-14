@@ -38,10 +38,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.algaworks.brewer.controller.CervejasController;
-import com.algaworks.brewer.converter.CidadeConverter;
-import com.algaworks.brewer.converter.EstadoConverter;
-import com.algaworks.brewer.converter.EstiloConverter;
-import com.algaworks.brewer.converter.GrupoConverter;
+import com.algaworks.brewer.controller.converter.EstadoConverter;
+import com.algaworks.brewer.controller.converter.EstiloConverter;
+import com.algaworks.brewer.controller.converter.GrupoConverter;
+import com.algaworks.brewer.controller.converter.CidadeConverter;
 import com.algaworks.brewer.session.TabelasItensSession;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
@@ -113,9 +113,10 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
 		
-		DateTimeFormatterRegistrar dateFormatter = new DateTimeFormatterRegistrar();
-		dateFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		dateFormatter.registerFormatters(conversionService);
+		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
+		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
+		dateTimeFormatter.registerFormatters(conversionService);
 		
 		return conversionService;
 	}
