@@ -10,32 +10,22 @@ import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.ItemVenda;
 
 class TabelaItensVenda {
-	
+
 	private String uuid;
 	private List<ItemVenda> itens = new ArrayList<>();
 	
 	public TabelaItensVenda(String uuid) {
-		super();
 		this.uuid = uuid;
 	}
 
-	public String getUuid() {
-		return uuid;
-	}
-
 	public BigDecimal getValorTotal() {
-		//Vai iterar todos os itens adicionados na tabela
 		return itens.stream()
-				//Vai pegar o resultado da multiplicação de cada item que passou pelo método getValorTotal() 
 				.map(ItemVenda::getValorTotal)
-				//Vai reduzir para um único valor utilizando determinada técnica, que, nesse caso, é a SOMA 
-				//Assim, se houver vários itens, seus valores serão somados e apresentará apenas um valor, que é a soma deles.
 				.reduce(BigDecimal::add)
-				//Caso não haja nenhum item adicionado, retornada ZERO
 				.orElse(BigDecimal.ZERO);
 	}
 	
-	public void adicionarItem(Cerveja cerveja, int quantidade) {
+	public void adicionarItem(Cerveja cerveja, Integer quantidade) {
 		Optional<ItemVenda> itemVendaOptional = buscarItemPorCerveja(cerveja);
 		
 		ItemVenda itemVenda = null;
@@ -49,12 +39,6 @@ class TabelaItensVenda {
 			itemVenda.setValorUnitario(cerveja.getValor());
 			itens.add(0, itemVenda);
 		}
-	}
-
-	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
-		return itens.stream()
-				.filter(i -> i.getCerveja().equals(cerveja))
-				.findAny();
 	}
 	
 	public void alterarQuantidadeItens(Cerveja cerveja, Integer quantidade) {
@@ -75,6 +59,16 @@ class TabelaItensVenda {
 
 	public List<ItemVenda> getItens() {
 		return itens;
+	}
+	
+	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
+		return itens.stream()
+				.filter(i -> i.getCerveja().equals(cerveja))
+				.findAny();
+	}
+
+	public String getUuid() {
+		return uuid;
 	}
 
 	@Override
@@ -101,4 +95,5 @@ class TabelaItensVenda {
 			return false;
 		return true;
 	}
+	
 }
