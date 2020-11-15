@@ -61,6 +61,12 @@
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
 		
+		<!-- EhCache -->
+		<ehcache.version>3.4.0</ehcache.version>
+		
+		<!-- JCache -->
+		<jcache.version>1.0.0</jcache.version>
+		
 	</properties>
 
 	<build>
@@ -265,6 +271,20 @@
 			<artifactId>junit</artifactId>
 			<version>4.13.1</version>
 			<scope>test</scope>
+		</dependency>
+		
+	<!-- EhCache -->
+		<dependency>
+		    <groupId>org.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>${ehcache.version}</version>
+		</dependency>
+		
+		<!-- JCache -->
+		<dependency>
+		    <groupId>javax.cache</groupId>
+		    <artifactId>cache-api</artifactId>
+		    <version>${jcache.version}</version>
 		</dependency>
 		
 	</dependencies>

@@ -126,14 +126,17 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	
 	@Bean
 	public CacheManager cacheManager() {
-//		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
-//				.maximumSize(3)
-//				.expireAfterAccess(20, TimeUnit.SECONDS);
-//		
-//		GuavaCacheManager cacheManager = new GuavaCacheManager();
-//		cacheManager.setCacheBuilder(cacheBuilder);
-//		
-//		return cacheManager;
+
+		//Não consegui implementar
+		
+//		@Bean
+//		public CacheManager cacheManager() throws Exception {
+//			
+//			return new JCacheCacheManager(Caching.getCachingProvider().getCacheManager(
+//					Paths.get("/cache/ehcache.xml").toUri(),
+//					getClass().getClassLoader()));
+//		}
+		
 		return new ConcurrentMapCacheManager();
 	}
 	
