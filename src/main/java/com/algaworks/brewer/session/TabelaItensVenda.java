@@ -15,12 +15,7 @@ class TabelaItensVenda {
 	private List<ItemVenda> itens = new ArrayList<>();
 	
 	public TabelaItensVenda(String uuid) {
-		super();
 		this.uuid = uuid;
-	}
-
-	public String getUuid() {
-		return uuid;
 	}
 
 	public BigDecimal getValorTotal() {
@@ -51,12 +46,6 @@ class TabelaItensVenda {
 		}
 	}
 
-	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
-		return itens.stream()
-				.filter(i -> i.getCerveja().equals(cerveja))
-				.findAny();
-	}
-	
 	public void alterarQuantidadeItens(Cerveja cerveja, Integer quantidade) {
 		ItemVenda itemVenda = buscarItemPorCerveja(cerveja).get();
 		itemVenda.setQuantidade(quantidade);
@@ -75,6 +64,16 @@ class TabelaItensVenda {
 
 	public List<ItemVenda> getItens() {
 		return itens;
+	}
+	
+	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
+		return itens.stream()
+				.filter(i -> i.getCerveja().equals(cerveja))
+				.findAny();
+	}
+	
+	public String getUuid() {
+		return uuid;
 	}
 
 	@Override

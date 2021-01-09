@@ -7,9 +7,11 @@
 	font-size: 18px;
 }
 
-.bw-required>.control-label:after {
+.bw-required > .control-label:after {
 	content: "*";
 }
+
+
 
 /*
 ######################
@@ -29,29 +31,32 @@
 /* Upload */
 .bw-upload {
 	padding: 15px;
+	
 	border: 1px dashed #ddd;
 	border-radius: 4px;
 	background: #fafafa;
+	
 	text-align: center;
 }
 
 .bw-upload-form-file {
 	display: inline-block;
-	vertical-align: middle;
-	position: relative;
-	overflow: hidden;
-	margin-bottom: 1px;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1px;
 }
 
-.bw-upload-form-file>input[type=file] {
+.bw-upload-form-file > input[type=file] {
 	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-	width: 100%;
-	opacity: 0;
-	cursor: pointer;
-	font-size: 500px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    
+    font-size: 500px;
 }
 
 /* Tabela Simples */
@@ -64,10 +69,10 @@
 }
 
 .bw-tabela-simples table tr td {
-	border-top: none;
-	border-bottom: 1px solid #e7eaec;
-	padding: 10px;
-	vertical-align: middle;
+    border-top: none;
+    border-bottom: 1px solid #e7eaec;
+    padding: 10px;
+    vertical-align: middle;
 }
 
 /*
@@ -166,21 +171,25 @@
 
 .bw-tabela-cervejas__vazio {
 	padding: 15px 15px;
+	
 	border: 1px dashed #ddd;
+	
 	text-align: center;
 	font-size: 1.2em;
 	font-weight: 300;
 	color: #555;
 }
 
+
 /*
 ######################################
 # CUSTOMIZAÇÃO DE COMPONENTES
 ######################################
 */
-.checkbox input[type="checkbox"]:checked+input+label::after {
-	font-family: 'FontAwesome';
-	content: "\f00c";
+
+.checkbox input[type="checkbox"]:checked + input + label::after {
+    font-family: 'FontAwesome';
+    content: "\f00c"; 
 }
 
 /* Easy Autocomplete */
@@ -200,9 +209,10 @@
 
 /* Tabela Item */
 .bw-tabela-item {
-	position: relative;
-	/* Para que o painel de exclusão apareça dentro da linha */
+	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
+	
 	padding: 15px 0;
+	
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -212,7 +222,7 @@
 .bw-tabela-item:after {
 	clear: both;
 	display: block;
-	content: "";
+    content: "";
 }
 
 .bw-tabela-item ~ .bw-tabela-item {
@@ -226,6 +236,7 @@
 .bw-tabela-item__coluna--foto {
 	float: left;
 	width: 60px;
+	
 	text-align: center;
 }
 
@@ -270,14 +281,17 @@
 }
 
 .bw-tabela-item__painel-exclusao {
-	position: absolute;
-	top: 0;
-	right: 100000px;
+    position: absolute;
+    top: 0;
+    right: 100000px;
 	height: 100%;
-	width: 50%;
-	text-align: center;
-	padding-top: 35px;
+    width: 50%;
+    
+    text-align: center;
+    padding-top: 35px;
+    
 	background-color: #f0ad4e;
+	
 	opacity: 0;
 	transition: opacity 0.5s;
 }
@@ -288,26 +302,31 @@
 }
 
 .bw-tabela-item__titulo-exclusao {
-	display: block;
-	margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
+    
 	color: #fff;
-	font-size: 1.3em;
+    font-size: 1.3em;
 }
 
-@media ( min-width : 768px) { /* screen-sm-min */
+@media (min-width: 768px) { /* screen-sm-min */
 	.bw-tabela-item__painel-exclusao {
 		width: 40%;
 		padding-top: 10px;
 	}
+	
 	.bw-tabela-item__coluna {
 		float: left;
 		margin-left: 0px;
 	}
+	
 	.bw-tabela-item__coluna--detalhes {
 		width: calc(70% - 30px);
 	}
+	
 	.bw-tabela-item__coluna--valores {
 		width: calc(30% - 30px);
+
 		text-align: right;
 	}
 }

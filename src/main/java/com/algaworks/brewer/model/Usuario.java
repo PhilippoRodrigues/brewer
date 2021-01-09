@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
 	private String nome;
 
 	@NotBlank(message = "E-mail é obrigatório")
-	@Email
+	@Email(message = "E-mail inválido")
 	private String email;
 
 	private String senha;
@@ -52,16 +52,17 @@ public class Usuario implements Serializable {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@PreUpdate
-	private void PreUpdate() {
-		this.confirmacaoSenha = senha;
-	}
 
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), 
 	inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
+
+	@PreUpdate
+	private void PreUpdate() {
+		this.confirmacaoSenha = senha;
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -128,7 +129,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public boolean isNovo() {
-		return this.codigo == null;
+		return codigo == null;
 	}
 
 	@Override
