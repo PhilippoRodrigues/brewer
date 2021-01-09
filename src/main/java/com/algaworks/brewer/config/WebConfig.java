@@ -2,6 +2,7 @@ package com.algaworks.brewer.config;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.springframework.beans.BeansException;
 import org.springframework.cache.CacheManager;
@@ -17,14 +18,15 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.data.repository.support.DomainClassConverter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
@@ -34,7 +36,6 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import com.algaworks.brewer.config.format.BigDecimalFormatter;
 import com.algaworks.brewer.controller.CervejasController;
 import com.algaworks.brewer.controller.converter.CidadeConverter;
 import com.algaworks.brewer.controller.converter.EstadoConverter;
@@ -51,7 +52,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
-public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 	
@@ -64,9 +65,8 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 	@Bean
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine((ISpringTemplateEngine)templateEngine());
+		resolver.setTemplateEngine((ISpringTemplateEngine) templateEngine());
 		resolver.setCharacterEncoding("UTF-8");
-		resolver.setOrder(1);
 		return resolver;
 	}
 	
@@ -85,7 +85,7 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 
 	private ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);		//Documentação do Thymeleaf exige essa linha de código
+		resolver.setApplicationContext(applicationContext);		//Documentação do Thymelead exige essa linha de código
 		resolver.setPrefix("classpath:/templates/");
 		resolver.setSuffix(".html");
 		resolver.setTemplateMode(TemplateMode.HTML);	//O modo do template que será trabalhado é o HTML
@@ -105,13 +105,12 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new GrupoConverter());
 		
-		BigDecimalFormatter bigDecimalFormatter = new BigDecimalFormatter("#,##0.00");
+		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 		
-		BigDecimalFormatter integerFormatter = new BigDecimalFormatter("#,##0");
+		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
 		
-		// API de Datas do Java 8
 		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
 		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
@@ -119,7 +118,12 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 		
 		return conversionService;
 	}
-
+	
+	@Bean
+	public LocaleResolver localeResolver() {
+		return new FixedLocaleResolver(new Locale("pt", "BR"));
+	}
+	
 	@Bean
 	public CacheManager cacheManager() {
 
@@ -145,21 +149,9 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 		return bundle;
 	}
 	
+	//Não funciona
 	@Bean
 	public DomainClassConverter<FormattingConversionService> domainClassConverter() {
 		return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
-	}
-	
-	@Bean
-	public LocalValidatorFactoryBean validator() {
-	    LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
-	    validatorFactoryBean.setValidationMessageSource(messageSource());
-	    
-	    return validatorFactoryBean;
-	}
-
-	@Override
-	public Validator getValidator() {
-		return validator();
 	}
 }
