@@ -46,7 +46,7 @@
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
 		
 		<!-- Jackson - JSON -->
-		<jackson-core.version>2.11.3</jackson-core.version>
+		<jackson-core.version>2.10.1</jackson-core.version>
 		
 		<!-- thumbnailator - Gerar thumbnail -->
 		<!-- https://github.com/coobird/thumbnailator -->
@@ -60,12 +60,6 @@
 		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
-		
-		<!-- EhCache -->
-		<ehcache.version>3.4.0</ehcache.version>
-		
-		<!-- JCache -->
-		<jcache.version>1.0.0</jcache.version>
 		
 	</properties>
 
@@ -99,7 +93,7 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
-				<version>5.3.0</version>
+				<version>5.2.2.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -231,7 +225,16 @@
 		    <version>${thymeleaf-extras-data-attribute.version}</version>
 		    <scope>compile</scope>
 		</dependency>
-	
+		
+		<!-- Cache - Guava -->
+
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>29.0-jre</version>
+		    <scope>compile</scope>
+		</dependency>
+		
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
@@ -271,20 +274,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.13.1</version>
 			<scope>test</scope>
-		</dependency>
-		
-	<!-- EhCache -->
-		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
-		    <version>${ehcache.version}</version>
-		</dependency>
-		
-		<!-- JCache -->
-		<dependency>
-		    <groupId>javax.cache</groupId>
-		    <artifactId>cache-api</artifactId>
-		    <version>${jcache.version}</version>
 		</dependency>
 		
 	</dependencies>
