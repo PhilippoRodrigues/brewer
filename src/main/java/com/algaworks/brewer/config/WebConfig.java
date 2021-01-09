@@ -128,6 +128,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	
 	@Bean
 	public CacheManager cacheManager() {
+<<<<<<< HEAD
 		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
 				.maximumSize(3)
 				.expireAfterAccess(20, TimeUnit.SECONDS);
@@ -136,6 +137,17 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		cacheManager.setCacheBuilder(cacheBuilder);
 		
 		return cacheManager;
+=======
+//		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
+//				.maximumSize(3)
+//				.expireAfterAccess(20, TimeUnit.SECONDS);
+//		
+//		GuavaCacheManager cacheManager = new GuavaCacheManager();
+//		cacheManager.setCacheBuilder(cacheBuilder);
+//		
+//		return cacheManager;
+		return new ConcurrentMapCacheManager();
+>>>>>>> parent of 0013200 (JCache e EhCache)
 	}
 	
 	@Bean
