@@ -28,27 +28,26 @@ Brewer.TabelaItens = (function() {
 	function onItemAtualizadoNoServidor(html) {
 		this.tabelaCervejasContainer.html(html);
 		
-		var quantidadeItemInput = $('.js-tabela-cerveja-quantidade-item');
+		var quantidadeItemInput = $('.js-tabela-cerveja-quantidade-item'); 
 		quantidadeItemInput.on('change', onQuantidadeItemAlterado.bind(this));
-		quantidadeItemInput.maskMoney({ precision: 0, thousands: '' });
+		quantidadeItemInput.maskMoney({precision: 0, thousands: ''});
 		
 		var tabelaItem = $('.js-tabela-item');
 		tabelaItem.on('dblclick', onDoubleClick);
 		$('.js-exclusao-item-btn').on('click', onExclusaoItemClick.bind(this));
 		
-		this.emitter.trigger('tabela-itens-atualizada', tabelaItem.data('valor-total'));
+		this.emitter.trigger('tabela-itens-atualizada', tabelaItem.data('valorTotal'));
 	}
 	
 	function onQuantidadeItemAlterado(evento) {
 		var input = $(evento.target);
 		var quantidade = input.val();
+		var codigoCerveja = input.data('codigo-cerveja');
 		
-		if (quantidade <= 0) {
+		if(quantidade <= 0) {
 			input.val(1);
 			quantidade = 1;
 		}
-		
-		var codigoCerveja = input.data('codigo-cerveja');
 		
 		var resposta = $.ajax({
 			url: 'item/' + codigoCerveja,

@@ -53,7 +53,6 @@ public class VendasController {
 	
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-		//getOne()
 		Cerveja cerveja = cervejas.findById(codigoCerveja).orElse(null);
 		tabelaItens.adicionarItem(uuid, cerveja, 1);
 		return mvTabelaItensVenda(uuid);

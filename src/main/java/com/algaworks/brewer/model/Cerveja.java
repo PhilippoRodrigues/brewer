@@ -1,6 +1,5 @@
 package com.algaworks.brewer.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -28,17 +27,15 @@ import com.algaworks.brewer.validation.SKU;
 
 @Entity
 @Table(name = "cerveja")
-public class Cerveja implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Cerveja {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private long codigo;
 
 	@SKU
 	@NotBlank(message = "SKU é obrigatório")
-	private String sku;
+	private String sku; // identificador da cerveja
 
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
@@ -48,12 +45,12 @@ public class Cerveja implements Serializable {
 	private String descricao;
 
 	@NotNull(message = "Valor é obrigatório")
-	@DecimalMin(value = "0.50", message = "O valor da cerveja deve ser maior que R$0,50")
+	@DecimalMin("0.01")
 	@DecimalMax(value = "9999999.99", message = "O valor da cerveja deve ser menor que R$9.999.999,99")
 	private BigDecimal valor;
 
-	@NotNull(message = "O teor alcóolico é obrigatório")
-	@DecimalMax(value = "100.0", message = "O valor do teor alcóolico deve ser menor que 100")
+	@NotNull(message = "O teor alcoólico é obrigatório")
+	@DecimalMax(value = "100.0", message = "O valor do teor alcoólico deve ser menor que 100")
 	@Column(name = "teor_alcoolico")
 	private BigDecimal teorAlcoolico;
 
@@ -61,7 +58,7 @@ public class Cerveja implements Serializable {
 	@DecimalMax(value = "100.0", message = "A comissão deve ser igual ou menor que 100")
 	private BigDecimal comissao;
 
-	@NotNull(message = "A quantidade em estoque é obrigatória")
+	@NotNull(message = "A quantidade de estoque é obrigatória")
 	@Max(value = 9999, message = "A quantidade em estoque deve ser menor que 9.999")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
@@ -78,16 +75,24 @@ public class Cerveja implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
-
+	
 	private String foto;
-
+	
 	@Column(name = "content_type")
 	private String contentType;
-
+	
 	@PrePersist
 	@PreUpdate
 	private void prePersistUpdate() {
 		sku = sku.toUpperCase();
+	}
+
+	public long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getSku() {
@@ -112,14 +117,6 @@ public class Cerveja implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
 	}
 
 	public BigDecimal getValor() {
@@ -173,23 +170,23 @@ public class Cerveja implements Serializable {
 	public Estilo getEstilo() {
 		return estilo;
 	}
-
+	
 	public void setEstilo(Estilo estilo) {
 		this.estilo = estilo;
 	}
-
+	
 	public String getFoto() {
 		return foto;
 	}
-
+	
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
+	
 	public String getContentType() {
 		return contentType;
 	}
-
+	
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
@@ -202,7 +199,7 @@ public class Cerveja implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((comissao == null) ? 0 : comissao.hashCode());
 		return result;
 	}
 
@@ -215,10 +212,10 @@ public class Cerveja implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cerveja other = (Cerveja) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (comissao == null) {
+			if (other.comissao != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!comissao.equals(other.comissao))
 			return false;
 		return true;
 	}
