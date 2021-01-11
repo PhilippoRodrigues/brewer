@@ -64,8 +64,7 @@ public class VendasController {
 	}
 	
 	@PostMapping("/nova")
-	public ModelAndView salvar(
-			Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
 		venda.calcularValorTotal();
 		
@@ -89,13 +88,15 @@ public class VendasController {
 	}
 	
 	@PutMapping("/item/{codigoCerveja}")
-	public ModelAndView alterarQuantidadeItem(@PathVariable("codigoCerveja") Cerveja cerveja, Integer quantidade, String uuid) {
+	public ModelAndView alterarQuantidadeItem(@PathVariable("codigoCerveja") Cerveja cerveja
+			, Integer quantidade, String uuid) {
 		tabelaItens.alterarQuantidadeItens(uuid, cerveja, quantidade);
 		return mvTabelaItensVenda(uuid);
 	}
 	
 	@DeleteMapping("/item/{uuid}/{codigoCerveja}")
-	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable String uuid) {
+	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja
+			, @PathVariable String uuid) {
 		tabelaItens.excluirItem(uuid, cerveja);
 		return mvTabelaItensVenda(uuid);
 	}

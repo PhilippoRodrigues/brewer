@@ -44,5 +44,4 @@ public class VendaValidator implements Validator {
 			errors.rejectValue("dataEntrega", "", "Informe uma data da entrega para um horário");
 		}
 	}
-
 }
