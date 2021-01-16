@@ -63,6 +63,64 @@ Brewer.CepNumberMask = (function() {
 	return CepNumberMask;
 }());
 
+Brewer.MaskDate = (function() {
+	
+	function MaskDate() {
+		
+		this.inputDate = $('.js-date');
+	}
+	
+	MaskDate.prototype.enable = function() {
+		this.inputDate.mask('00/00/0000');
+		this.inputDate.datepicker({
+			orientation: 'bottom',
+			language: 'pt-BR',
+			autoclose: true
+		});
+	}
+	
+	return MaskDate;
+}());
+
+Brewer.Security = (function(){
+	
+	function Security(){
+		this.token = $('input[name=_csrf]').val();
+		this.header = $('input[name=_csrf_header]').val();
+	}
+	
+	//Função para habilitar a função acima
+	
+	Security.prototype.enable = function(){
+		//toda vez que for enviado uma requisição AJAX, será redefinido o token request
+		
+		$(document).ajaxSend(function(event, jqxhr, settings) {
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+		
+		//O contexto da implementação da função acima está sendo executado dentro dessa. 
+		//Dessa forma, o this refere-se ao contexto dessa função (Security.prototype.enable).
+		
+		/*
+		Para que o contexto seja executado dentro da função Security, é implementado o método bind(), 
+		que serve para trocar o contexto da função Security.prototype.enable para o contexto da função Security.
+		*/
+	}
+	
+	return Security;
+	
+}());
+
+numeral.locale('pt-br');
+
+Brewer.formatarMoeda = function(valor) {
+	return numeral(valor).format('0,0.00');
+}
+
+Brewer.recuperarValor = function(valorFormatado) {
+	return numeral(valorFormatado).value();
+}
+
 $(function() {
 
 	var maskMoney = new Brewer.MaskMoney();
@@ -71,6 +129,12 @@ $(function() {
 	var maskPhoneNumber = new Brewer.MaskPhoneNumber();
 	maskPhoneNumber.enable();
 
-	var CepNumberMask = new Brewer.CepNumberMask();
-	CepNumberMask.enable();
+	var cepNumberMask = new Brewer.CepNumberMask();
+	cepNumberMask.enable();
+	
+	var maskDate = new Brewer.MaskDate();
+	maskDate.enable();
+	
+	var security = new Brewer.Security();
+	security.enable();
 });
