@@ -59,8 +59,9 @@ public class PageWrapper<T> {
 	
 	public String inverterDirecao(String propriedade) {
 		String direcao = "asc";
-		
-		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;
+
+		page.getSort();
+		Order order = page.getSort().getOrderFor(propriedade);
 		
 		if(order != null) {
 			//Se tiver direção para determinada propriedade
@@ -74,12 +75,13 @@ public class PageWrapper<T> {
 	}
 	
 	public boolean ordenada(String propriedade) {
-		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;
+		page.getSort();
+		Order order = page.getSort().getOrderFor(propriedade);
 		
 		if(order == null) {
 			return false;
 		}
 		
-		return page.getSort().getOrderFor(propriedade) != null ? true : false;
+		return page.getSort().getOrderFor(propriedade) != null;
 	}
 }

@@ -90,8 +90,6 @@ public class UsuariosImpl implements UsuariosQueries {
 				//predicateList.add((Predicate) Restrictions.ilike("email", filtro.getEmail(), MatchMode.START));
 			}
 			
-			//NÃO ESTÁ EXIBINDO O FILTRO POR GRUPOS NA TELA
-			
 			if (filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()) {
 				
 				List<Criterion> subqueries = new ArrayList<>();

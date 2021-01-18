@@ -53,8 +53,8 @@ public class ClientesImpl implements ClientesQueries {
 
 		query.select(clienteEntity).where(filtros);
 
-		TypedQuery<Cliente> typedQuery = (TypedQuery<Cliente>) paginacaoUtil.prepararOrdem(query, clienteEntity,
-				pageable);
+		TypedQuery<Cliente> typedQuery = (TypedQuery<Cliente>) paginacaoUtil.prepararOrdem(
+				query, clienteEntity, pageable);
 		typedQuery = (TypedQuery<Cliente>) paginacaoUtil.prepararIntervalo(typedQuery, pageable);
 
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));

@@ -10,8 +10,8 @@ import com.algaworks.brewer.repository.helper.cliente.ClientesQueries;
 
 public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries {
 
-	public Optional<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
+	Optional<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
 
-	public List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
+	List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
 
 }

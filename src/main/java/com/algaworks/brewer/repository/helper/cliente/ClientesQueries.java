@@ -11,7 +11,7 @@ import com.algaworks.brewer.repository.filter.ClienteFilter;
 
 public interface ClientesQueries {
 	
-	public Page<Cliente> filtrar(ClienteFilter clienteFilter, Pageable pageable);
+	Page<Cliente> filtrar(ClienteFilter clienteFilter, Pageable pageable);
 	
-	public List<ClienteDTO> porNome(String nome);
+	List<ClienteDTO> porNome(String nome);
 }
