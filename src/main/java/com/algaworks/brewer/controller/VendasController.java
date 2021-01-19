@@ -3,6 +3,7 @@ package com.algaworks.brewer.controller;
 import java.util.UUID;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
+import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.Clientes;
 import com.algaworks.brewer.repository.Vendas;
@@ -34,19 +35,18 @@ public class VendasController {
 	
 	@Autowired
 	private Cervejas cervejas;
-
 	@Autowired
 	private Vendas vendas;
 
 	@Autowired
 	private Clientes clientes;
-	
+
+	@Autowired
+	private Mailer mailer;
 	@Autowired
 	private TabelasItensSession tabelaItens;
-	
 	@Autowired
 	private CadastroVendaService cadastroVendaService;
-	
 	@Autowired
 	private VendaValidator vendaValidator;
 	
@@ -110,8 +110,11 @@ public class VendasController {
 		}
 		
 		venda.setUsuario(usuarioSistema.getUsuario());
-		
+
 		cadastroVendaService.salvar(venda);
+
+		mailer.enviar();
+
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
