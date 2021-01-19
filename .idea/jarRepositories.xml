@@ -2,6 +2,21 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="inhouse-plugins" />
+      <option name="name" value="inhouse-plugins" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/inhouse-plugins" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven" />
+      <option name="name" value="maven-central-repo" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="http://artifactory.mobicare.com.br/artifactory/libs-release" />
@@ -15,6 +30,36 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="external-release-local" />
+      <option name="name" value="external-release-local" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/external-release-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="libs-release-local" />
+      <option name="name" value="libs-release-local" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/libs-release-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-central-cache" />
+      <option name="name" value="maven-central-cache" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/maven-central-cache" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="libs-snapshot" />
+      <option name="name" value="libs-snapshot" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/libs-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="libs-snapshot-local" />
+      <option name="name" value="libs-snapshot-local" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/libs-snapshot-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="libs-release" />
+      <option name="name" value="libs-release" />
+      <option name="url" value="http://artifactory.mobicare.com.br/artifactory/libs-release" />
     </remote-repository>
   </component>
 </project>

@@ -1,9 +1,8 @@
 package com.algaworks.brewer.repository.helper.venda;
 
-import com.algaworks.brewer.model.*;
+import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
-import org.hibernate.criterion.MatchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,7 +13,10 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;

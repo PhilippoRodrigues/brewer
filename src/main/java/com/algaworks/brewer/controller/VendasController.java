@@ -1,22 +1,16 @@
 package com.algaworks.brewer.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
-import com.algaworks.brewer.dto.CervejaDTO;
-import com.algaworks.brewer.dto.VendaDTO;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.Clientes;
 import com.algaworks.brewer.repository.Vendas;
-import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.repository.filter.ClienteFilter;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
