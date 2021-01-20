@@ -25,7 +25,8 @@ public class CadastroVendaService {
 		
 		if (venda.getDataEntrega() != null) {
 			venda.setDataHoraEntrega(LocalDateTime.of(
-					venda.getDataEntrega(), venda.getHorarioEntrega() != null ? venda.getHorarioEntrega() : LocalTime.NOON));
+					venda.getDataEntrega(), venda.getHorarioEntrega() != null ?
+							venda.getHorarioEntrega() : LocalTime.NOON));
 		}
 		
 		vendas.save(venda);

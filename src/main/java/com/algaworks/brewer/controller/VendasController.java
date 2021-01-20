@@ -37,10 +37,6 @@ public class VendasController {
 	private Cervejas cervejas;
 	@Autowired
 	private Vendas vendas;
-
-	@Autowired
-	private Clientes clientes;
-
 	@Autowired
 	private Mailer mailer;
 	@Autowired
@@ -113,7 +109,7 @@ public class VendasController {
 
 		cadastroVendaService.salvar(venda);
 
-		mailer.enviar();
+		mailer.enviar(venda);
 
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
@@ -147,7 +143,7 @@ public class VendasController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar(VendaFilter vendaFilter, ClienteFilter clienteFilter, @PageableDefault(size=3) Pageable pageable,
+	public ModelAndView pesquisar(VendaFilter vendaFilter, @PageableDefault(size=3) Pageable pageable,
 								  HttpServletRequest httpServletRequest) {
 
 		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");

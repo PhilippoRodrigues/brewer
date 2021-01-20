@@ -60,6 +60,9 @@
 		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
+
+		<!-- Java Mail -->
+		<javax.mail.version>1.6.2</javax.mail.version>
 		
 	</properties>
 
@@ -279,8 +282,8 @@
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
-			<scope>compile</scope>
+			<version>${javax.mail.version}</version>
+		<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
