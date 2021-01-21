@@ -1,3 +1,4 @@
 /target/
-/src/main/resources/env/
+
+src/main/resources/env/mail.properties
 
