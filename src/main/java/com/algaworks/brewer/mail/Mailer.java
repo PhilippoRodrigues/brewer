@@ -21,6 +21,7 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -40,7 +41,7 @@ public class Mailer {
 
     @Async
     public void enviar(Venda venda) {
-        Context context = new Context();
+        Context context = new Context(new Locale("pt", "BR"));
         context.setVariable("venda", venda);
         context.setVariable("logo", "logo");
 
@@ -70,7 +71,7 @@ public class Mailer {
             helper.setFrom("testeparaocursodaalgaworks@gmail.com");
             //helper.setTo(venda.getCliente().getEmail());
             helper.setTo("pipophilippo@gmail.com");
-            helper.setSubject("Brewer - Venda realizada");
+            helper.setSubject(String.format("Brewer - Venda nº %d", venda.getCodigo()));
             helper.setText(email, true);
 
             helper.addInline("logo", new ClassPathResource(
