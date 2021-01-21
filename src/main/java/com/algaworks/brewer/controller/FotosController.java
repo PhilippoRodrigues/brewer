@@ -25,7 +25,8 @@ public class FotosController {
 	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 		
-		Thread thread = new Thread(new FotoStorageRunnable(files, resultado, fotoStorage));
+		Thread thread = new Thread(new FotoStorageRunnable(
+				files, resultado, fotoStorage));
 		thread.start();
 		
 		return resultado;
