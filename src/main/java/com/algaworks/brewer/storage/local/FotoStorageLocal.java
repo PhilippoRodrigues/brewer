@@ -83,7 +83,12 @@ public class FotoStorageLocal implements FotoStorage {
 			throw new RuntimeException("Erro na leitura da imagem", e);
 		}
 	}
-	
+
+	@Override
+	public byte[] recuperarThumbnail(String fotoCerveja) {
+		return recuperar("thumbnail." + fotoCerveja);
+	}
+
 	private void criarPastas() {
 		try {
 			Files.createDirectories(this.local);
