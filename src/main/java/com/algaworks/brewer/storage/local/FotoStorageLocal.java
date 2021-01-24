@@ -22,7 +22,7 @@ public class FotoStorageLocal implements FotoStorage {
 	private static final Logger logger = LoggerFactory.getLogger(FotoStorageLocal.class);
 	private static final String THUMBNAIL_PREFIX = "thumbnail.";
 
-	private Path local;
+	private final Path local;
 	private Path localTemporario;
 
 	public FotoStorageLocal() {

@@ -11,7 +11,7 @@ import com.algaworks.brewer.repository.helper.cidade.CidadesQueries;
 
 public interface Cidades extends JpaRepository<Cidade, Long>, CidadesQueries {
 
-	public List<Cidade> findByEstadoCodigo(Long estadoCodigo);
+	List<Cidade> findByEstadoCodigo(Long estadoCodigo);
 
-	public Optional<Cidade> findByNomeAndEstado(String nome, Estado estado);
+	Optional<Cidade> findByNomeAndEstado(String nome, Estado estado);
 }

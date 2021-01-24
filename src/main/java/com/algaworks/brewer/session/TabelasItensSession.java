@@ -14,7 +14,7 @@ import com.algaworks.brewer.model.ItemVenda;
 @Component
 public class TabelasItensSession {
 
-	private Set<TabelaItensVenda> tabelas = new HashSet<>();
+	private final Set<TabelaItensVenda> tabelas = new HashSet<>();
 
 	public void adicionarItem(String uuid, Cerveja cerveja, int quantidade) {
 		TabelaItensVenda tabela = buscarTabelaPorUuid(uuid);

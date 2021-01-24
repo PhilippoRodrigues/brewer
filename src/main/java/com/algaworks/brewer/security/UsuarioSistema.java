@@ -11,7 +11,7 @@ public class UsuarioSistema extends User{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Usuario usuario;
+	private final Usuario usuario;
 
 	public UsuarioSistema(Usuario usuario, Collection<? extends GrantedAuthority> authorities) {
 		super(usuario.getEmail(), usuario.getSenha(), authorities);

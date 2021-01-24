@@ -5,7 +5,7 @@ public enum Origem {
 	NACIONAL("Nacional"),
 	INTERNACIONAL("Internacional");
 	
-	private String descricao;
+	private final String descricao;
 	
 	Origem(String descricao){
 		this.descricao = descricao;

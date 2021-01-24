@@ -43,10 +43,7 @@ public class UsuarioGrupoId implements Serializable {
 		} else if (!grupo.equals(other.grupo))
 			return false;
 		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
-		return true;
+			return other.usuario == null;
+		} else return usuario.equals(other.usuario);
 	}
 }

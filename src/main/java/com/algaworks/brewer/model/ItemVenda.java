@@ -94,10 +94,7 @@ public class ItemVenda {
 			return false;
 		ItemVenda other = (ItemVenda) obj;
 		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+			return other.codigo == null;
+		} else return codigo.equals(other.codigo);
 	}
 }

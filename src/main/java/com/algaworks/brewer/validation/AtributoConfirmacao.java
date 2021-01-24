@@ -17,15 +17,13 @@ import com.algaworks.brewer.validation.validator.AtributoConfirmacaoValidator;
 @Constraint(validatedBy = { AtributoConfirmacaoValidator.class })
 public @interface AtributoConfirmacao {
 
-	public String atributo();
-
-	public String atributoConfirmacao();
-
 	@OverridesAttribute(constraint = Pattern.class, name = "message")
 	String message() default "Senha não confere";
 
 	Class<?>[] groups() default {};
-
 	Class<? extends Payload>[] payload() default {};
+	String atributo();
+
+	String atributoConfirmacao();
 
 }

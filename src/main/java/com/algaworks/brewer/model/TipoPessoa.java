@@ -18,12 +18,12 @@ public enum TipoPessoa {
 		}
 	};
 
-	private String descricao;
-	private String documento;
-	private String mascara;
-	private Class<?> grupo;
+	private final String descricao;
+	private final String documento;
+	private final String mascara;
+	private final Class<?> grupo;
 
-	private TipoPessoa(String descricao, String documento, String mascara, Class<?> grupo) {
+	TipoPessoa(String descricao, String documento, String mascara, Class<?> grupo) {
 		this.descricao = descricao;
 		this.documento = documento;
 		this.mascara = mascara;

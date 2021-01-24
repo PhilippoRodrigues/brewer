@@ -29,7 +29,7 @@ public class Mailer {
     private FotoStorage fotoStorage;
 
     @Autowired
-    private static Logger logger = LoggerFactory.getLogger(Mailer.class);
+    private static final Logger logger = LoggerFactory.getLogger(Mailer.class);
 
     @Autowired
     private JavaMailSender mailSender;

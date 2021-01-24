@@ -6,7 +6,7 @@ public enum StatusVenda {
 	EMITIDA("Emitida"),
 	CANCELADA("Cancelada");
 	
-	private String descricao;
+	private final String descricao;
 	
 	StatusVenda(String descricao) {
 		this.descricao = descricao;

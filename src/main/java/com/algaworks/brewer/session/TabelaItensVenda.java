@@ -11,8 +11,8 @@ import com.algaworks.brewer.model.ItemVenda;
 
 class TabelaItensVenda {
 
-	private String uuid;
-	private List<ItemVenda> itens = new ArrayList<>();
+	private final String uuid;
+	private final List<ItemVenda> itens = new ArrayList<>();
 	
 	public TabelaItensVenda(String uuid) {
 		this.uuid = uuid;
@@ -89,10 +89,7 @@ class TabelaItensVenda {
 			return false;
 		TabelaItensVenda other = (TabelaItensVenda) obj;
 		if (uuid == null) {
-			if (other.uuid != null)
-				return false;
-		} else if (!uuid.equals(other.uuid))
-			return false;
-		return true;
+			return other.uuid == null;
+		} else return uuid.equals(other.uuid);
 	}
 }

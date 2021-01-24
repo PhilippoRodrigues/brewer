@@ -71,10 +71,7 @@ public class Grupo implements Serializable {
 			return false;
 		Grupo other = (Grupo) obj;
 		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+			return other.codigo == null;
+		} else return codigo.equals(other.codigo);
 	}
 }

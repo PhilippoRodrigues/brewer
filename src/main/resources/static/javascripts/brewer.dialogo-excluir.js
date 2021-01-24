@@ -46,7 +46,7 @@ Brewer.DialogoExcluir = function() {
     }
 
     function onErroExcluir(e) {
-        console.log('ahahahah', e.responseText);
+        // console.log('ahahahah', e.responseText);
         swal('Oops!', e.responseText, 'error');
     }
 

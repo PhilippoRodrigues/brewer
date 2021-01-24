@@ -11,7 +11,7 @@ import com.algaworks.brewer.repository.filter.CidadeFilter;
 
 public interface CidadesQueries {
 	
-	public Page<Cidade> filtrar(CidadeFilter cidadeFilter, Pageable pageable);
+	Page<Cidade> filtrar(CidadeFilter cidadeFilter, Pageable pageable);
 	
-	public List<CidadeDTO> porNomeOuEstado(String nomeOuEstado);
+	List<CidadeDTO> porNomeOuEstado(String nomeOuEstado);
 }

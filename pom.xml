@@ -16,7 +16,7 @@
 
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<maven-compiler-pluging.version>3.8.1</maven-compiler-pluging.version>
 		<flyway-maven-plugin.version>6.5.0</flyway-maven-plugin.version>
 		<mysql-connector-java.version>8.0.18</mysql-connector-java.version>
@@ -41,29 +41,29 @@
 
 		<!-- JPA/Hibernate -->
 		<hibernate.version>5.4.18.Final</hibernate.version>
-		
+
 		<!-- Spring Data JPA -->
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
-		
+
 		<!-- Jackson - JSON -->
 		<jackson-core.version>2.10.1</jackson-core.version>
-		
+
 		<!-- thumbnailator - Gerar thumbnail -->
 		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.11</thumbnailator.version>
-			
+
 		<!-- thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
-		
+
 		<!-- Apache Bean Utils -->
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		
+
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
 
 		<!-- Java Mail -->
 		<javax.mail.version>1.6.2</javax.mail.version>
-		
+
 	</properties>
 
 	<build>
@@ -201,7 +201,7 @@
 			<version>${spring-data-jpa.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Jackson - JSON -->
 
 		<dependency>
@@ -210,25 +210,25 @@
 			<version>${jackson-core.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- thumbnailator - Gerar thumbnail -->
-		
+
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<version>${thumbnailator.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- thymeleaf extras data attribute -->
-		
+
 		<dependency>
 		    <groupId>com.github.mxab.thymeleaf.extras</groupId>
 		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
 		    <version>${thymeleaf-extras-data-attribute.version}</version>
 		    <scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Cache - Guava -->
 
 		<dependency>
@@ -237,13 +237,13 @@
 		    <version>29.0-jre</version>
 		    <scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
 		    <version>4.3.25.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Apache Bean Utils -->
 		<dependency>
     		<groupId>commons-beanutils</groupId>
@@ -251,7 +251,7 @@
     		<version>${commons-beanutils.version}</version>
     		<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Spring Security -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>

@@ -23,12 +23,12 @@ public class Estilo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	@OneToMany(mappedBy = "estilo")
-	private List<Cerveja> cervejas;
-
-	@NotBlank(message = "Nome é obrigatório")
+	@NotBlank(message = "O nome é obrigatório")
 	@Size(max = 20, message = "O tamanho do nome não pode ser maior que {max} caracteres")
 	private String nome;
+
+	@OneToMany(mappedBy = "estilo")
+	private List<Cerveja> cervejas;
 
 	public Long getCodigo() {
 		return codigo;
@@ -46,19 +46,11 @@ public class Estilo implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Cerveja> getCervejas() {
-		return cervejas;
-	}
-
-	public void setCervejas(List<Cerveja> cervejas) {
-		this.cervejas = cervejas;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (codigo ^ (codigo >>> 32));
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -71,8 +63,9 @@ public class Estilo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Estilo other = (Estilo) obj;
-		if (codigo != other.codigo)
-			return false;
-		return true;
+		if (codigo == null) {
+			return other.codigo == null;
+		} else return codigo.equals(other.codigo);
 	}
+
 }

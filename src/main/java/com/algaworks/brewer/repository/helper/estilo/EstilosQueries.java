@@ -11,7 +11,7 @@ import com.algaworks.brewer.repository.filter.EstiloFilter;
 
 public interface EstilosQueries {
 	
-	public Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable);
+	Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable);
 	
-	public List<EstiloDTO> porNome(String nome);
+	List<EstiloDTO> porNome(String nome);
 }
