@@ -37,7 +37,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="brewer" />
+          <factory-entry name="brewer" value="35eefe6d-2aae-4d74-a85f-82fa91f5723f" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

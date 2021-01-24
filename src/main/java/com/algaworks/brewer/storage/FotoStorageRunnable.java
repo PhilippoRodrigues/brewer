@@ -6,10 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.algaworks.brewer.dto.FotoDTO;
 
 public class FotoStorageRunnable implements Runnable {
-	
-	private MultipartFile[] files;
-	private DeferredResult<FotoDTO> resultado;
-	private FotoStorage fotoStorage;
+
+	private final MultipartFile[] files;
+	private final DeferredResult<FotoDTO> resultado;
+	private final FotoStorage fotoStorage;
 
 	public FotoStorageRunnable(MultipartFile[] files, DeferredResult<FotoDTO> resultado, FotoStorage fotoStorage) {
 		this.files = files;
@@ -19,11 +19,11 @@ public class FotoStorageRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		
 		String nomeFoto = this.fotoStorage.salvarTemporariamente(files);
 		String contentType = files[0].getContentType();
-		
-		//TODO: salvar a foto no sistema de arquivos (é a operação demorada)
 		resultado.setResult(new FotoDTO(nomeFoto, contentType));
 	}
 }
+
+
+
