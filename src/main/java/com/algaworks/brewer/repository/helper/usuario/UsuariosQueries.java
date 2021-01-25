@@ -11,10 +11,13 @@ import com.algaworks.brewer.repository.filter.UsuarioFilter;
 
 
 public interface UsuariosQueries {
-	
+
 	Optional<Usuario> porEmailEAtivo(String email);
-	
+
 	List<String> permissoes(Usuario usuario);
-	
+
 	Page<Usuario> filtrar(UsuarioFilter filtro, Pageable pageable);
+
+	Usuario buscarComGrupos(Long codigo);
+
 }

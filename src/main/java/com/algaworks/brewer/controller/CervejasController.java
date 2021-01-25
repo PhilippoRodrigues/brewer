@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.algaworks.brewer.dto.CervejaDTO;
 import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
-import com.algaworks.brewer.dto.CervejaDTO;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
@@ -77,7 +77,8 @@ public class CervejasController {
 	}
 
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
+	public @ResponseBody
+	List<CervejaDTO> pesquisar(String skuOuNome) {
 		return cervejas.porSkuOuNome(skuOuNome);
 	}
 

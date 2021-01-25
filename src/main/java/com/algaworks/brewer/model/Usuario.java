@@ -23,7 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.algaworks.brewer.validation.AtributoConfirmacao;
 
-@AtributoConfirmacao(atributo="senha", atributoConfirmacao="confirmacaoSenha", message="Senhas não conferem")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha"
+		, message = "Confirmação da senha não confere")
 @Entity
 @Table(name = "usuario")
 @DynamicUpdate
@@ -43,24 +44,23 @@ public class Usuario implements Serializable {
 	private String email;
 
 	private String senha;
-	
+
 	@Transient
 	private String confirmacaoSenha;
 
 	private Boolean ativo;
 
-	@Column(name = "data_nascimento")
-	private LocalDate dataNascimento;
-	
-
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), 
-	inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
+			, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
 
+	@Column(name = "data_nascimento")
+	private LocalDate dataNascimento;
+
 	@PreUpdate
-	private void PreUpdate() {
+	private void preUpdate() {
 		this.confirmacaoSenha = senha;
 	}
 
@@ -95,14 +95,6 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	public String getconfirmacaoSenha() {
-		return confirmacaoSenha;
-	}
-
-	public void setConfirmacaoSenha(String confirmacaoSenha) {
-		this.confirmacaoSenha = confirmacaoSenha;
-	}
 
 	public Boolean getAtivo() {
 		return ativo;
@@ -127,7 +119,15 @@ public class Usuario implements Serializable {
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
-	
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -150,7 +150,10 @@ public class Usuario implements Serializable {
 			return false;
 		Usuario other = (Usuario) obj;
 		if (codigo == null) {
-			return other.codigo == null;
-		} else return codigo.equals(other.codigo);
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 }
