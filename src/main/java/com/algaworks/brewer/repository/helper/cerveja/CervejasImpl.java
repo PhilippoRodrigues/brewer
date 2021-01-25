@@ -1,5 +1,6 @@
 package com.algaworks.brewer.repository.helper.cerveja;
 
+import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.algaworks.brewer.dto.CervejaDTO;
+import com.algaworks.brewer.model.Usuario;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,7 +53,16 @@ public class CervejasImpl implements CervejasQueries {
 		
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
+	public Cerveja buscarPorCodigo(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (Cerveja) criteria.uniqueResult();
+	}
+
 	private Long total(CervejaFilter filtro) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
@@ -65,6 +80,10 @@ public class CervejasImpl implements CervejasQueries {
 
 		
 		if (filtro != null) {
+			if (!StringUtils.isEmpty(filtro.getCodigo())) {
+				predicateList.add(builder.equal(cervejaEntity.get("codigo"), filtro.getCodigo()));
+			}
+
 			if (!StringUtils.isEmpty(filtro.getSku())) {
 				predicateList.add(builder.equal(cervejaEntity.get("sku"), filtro.getSku()));
 			}

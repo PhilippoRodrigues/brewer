@@ -7,7 +7,8 @@ import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
 
 public class CervejaFilter {
-	
+
+	private Long codigo;
 	private String sku;
 	private String nome;
 	private Estilo estilo;
@@ -17,7 +18,15 @@ public class CervejaFilter {
 	private BigDecimal valorAte;
 	
 	//Getters e setters
-	
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getSku() {
 		return sku;
 	}

@@ -3,6 +3,7 @@ package com.algaworks.brewer.repository.helper.cerveja;
 import java.util.List;
 
 import com.algaworks.brewer.dto.CervejaDTO;
+import com.algaworks.brewer.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,5 +15,7 @@ public interface CervejasQueries {
 	Page<Cerveja> filtrar(CervejaFilter filtro, Pageable pageable);
 	
 	List<CervejaDTO> porSkuOuNome(String skuOuNome);
+
+	Cerveja buscarPorCodigo(Long codigo);
 
 }

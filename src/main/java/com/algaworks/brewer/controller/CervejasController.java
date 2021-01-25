@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.algaworks.brewer.dto.CervejaDTO;
+import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -93,7 +94,8 @@ public class CervejasController {
 	}
 
 	@GetMapping("/{codigo}")
-	public ModelAndView editar(@PathVariable("codigo") Cerveja cerveja) {
+	public ModelAndView editar(@PathVariable("codigo") Long codigo) {
+		Cerveja cerveja = cervejas.buscarPorCodigo(codigo);
 		ModelAndView mv = nova(cerveja);
 		mv.addObject(cerveja);
 		return mv;
