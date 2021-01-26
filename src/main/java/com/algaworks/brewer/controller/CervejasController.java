@@ -84,8 +84,9 @@ public class CervejasController {
 	}
 
 	@DeleteMapping("/{codigo}")
-	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Cerveja cerveja) {
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Long codigo) {
 		try {
+			Cerveja cerveja = cervejas.buscarPorCodigo(codigo);
 			cadastroCervejaService.excluir(cerveja);
 		} catch (ImpossivelExcluirEntidadeException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
