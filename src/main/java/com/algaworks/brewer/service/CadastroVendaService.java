@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,12 @@ public class CadastroVendaService {
 
 	@Autowired
 	private Vendas vendas;
-	
+
 	@Transactional
 	public Venda salvar(Venda venda) {
+		if (venda.isSalvarProibido())
+			throw new RuntimeException("Usuário tentando salvar uma venda proibida");
+
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());
 		} else {
@@ -40,6 +44,16 @@ public class CadastroVendaService {
 	public void emitir(Venda venda) {
 		venda.setStatus(StatusVenda.EMITIDA);
 		salvar(venda);
+	}
+
+	@PreAuthorize("#venda.usuario == principal.usuario")
+	@Transactional
+	public void cancelar(Venda venda) {
+		Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(null);
+
+		assert vendaExistente != null;
+		vendaExistente.setStatus(StatusVenda.CANCELADA);
+		vendas.save(vendaExistente);
 	}
 }
 

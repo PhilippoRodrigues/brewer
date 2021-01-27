@@ -12,6 +12,7 @@ import com.algaworks.brewer.repository.filter.VendaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -96,13 +97,13 @@ public class VendasController {
 	}
 	
 	@PostMapping(value = "/nova", params = "enviarEmail")
-	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes, 
+	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes,
 			@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		validarVenda(venda, result);
 		if (result.hasErrors()) {
 			return nova(venda);
 		}
-		
+
 		venda.setUsuario(usuarioSistema.getUsuario());
 
 		venda = cadastroVendaService.salvar(venda);
@@ -114,14 +115,14 @@ public class VendasController {
 
 		return new ModelAndView("redirect:/vendas/nova");
 	}
-	
+
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
 		Cerveja cerveja = cervejas.findById(codigoCerveja).orElse(null);
 		tabelaItens.adicionarItem(uuid, cerveja, 1);
 		return mvTabelaItensVenda(uuid);
 	}
-	
+
 	@PutMapping("/item/{codigoCerveja}")
 	public ModelAndView alterarQuantidadeItem(@PathVariable("codigoCerveja") Long codigoCerveja
 			, Integer quantidade, String uuid) {
@@ -156,6 +157,20 @@ public class VendasController {
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
+
+	@PostMapping(value = "/nova", params = "cancelar")
+		public ModelAndView cancelar(Venda venda, BindingResult result, RedirectAttributes attributes,
+				@AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+
+			try {
+				cadastroVendaService.cancelar(venda);
+			}catch (AccessDeniedException e){
+				return new ModelAndView("/403");
+			}
+
+			attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso!");
+			return new ModelAndView("redirect:/vendas/" + venda.getCodigo());
+		}
 
 	private ModelAndView mvTabelaItensVenda(String uuid) {
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
