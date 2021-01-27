@@ -21,6 +21,10 @@ public class CadastroVendaService {
 	public Venda salvar(Venda venda) {
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());
+		} else {
+			Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(null);
+			assert vendaExistente != null;
+			venda.setDataCriacao(vendaExistente.getDataCriacao());
 		}
 		
 		if (venda.getDataEntrega() != null) {

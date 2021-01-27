@@ -3,6 +3,10 @@ package com.algaworks.brewer.repository.helper.venda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,6 +51,16 @@ public class VendasImpl implements VendasQueries {
         typedQuery = (TypedQuery<Venda>) paginacaoUtil.prepararIntervalo(typedQuery, pageable);
 
         return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Venda buscarComItens(Long codigo) {
+        Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+        criteria.createAlias("itens", "i", JoinType.LEFT_OUTER_JOIN);
+        criteria.add(Restrictions.eq("codigo", codigo));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return (Venda)criteria.uniqueResult();
     }
 
     private Long total(VendaFilter filtro) {
