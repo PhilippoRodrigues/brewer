@@ -19,7 +19,7 @@
 				<input type="text" maxlength="3" 
 					class="bw-tabela-cerveja-campo-quantidade  js-tabela-cerveja-quantidade-item" 
 					th:value="${item.quantidade}" data:codigo-cerveja="${item.cerveja.codigo}"
-				th:if="${venda != null ? venda.salvarProibido : false}"/>
+					   th:disabled="${venda != null ? venda.salvarProibido : false}"/>
 				<span>x R$[[${{item.valorUnitario}}]]</span>
 			</div>
 			<div class="bw-tabela-cerveja-valor-grande">R$[[${{item.valorTotal}}]]</div>

@@ -94,5 +94,4 @@ public class UsuariosController {
 		mv.addObject(usuario);
 		return mv;
 	}
-
 }

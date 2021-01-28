@@ -1,6 +1,6 @@
 package com.algaworks.brewer.repository.helper.venda;
 
-import com.algaworks.brewer.model.Venda;
+import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 import org.hibernate.Criteria;
@@ -17,10 +17,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -60,7 +57,7 @@ public class VendasImpl implements VendasQueries {
         criteria.createAlias("itens", "i", JoinType.LEFT_OUTER_JOIN);
         criteria.add(Restrictions.eq("codigo", codigo));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return (Venda)criteria.uniqueResult();
+        return (Venda) criteria.uniqueResult();
     }
 
     private Long total(VendaFilter filtro) {

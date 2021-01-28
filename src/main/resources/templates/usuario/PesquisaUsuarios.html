@@ -5,7 +5,7 @@
 	  layout:decorate="~{layout/LayoutPadrao}"
 	  xmlns:brewer="http://brewer.algaworks.com"
 	  xmlns:data="http://www.thymeleaf.org/extras/data"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<title>Pesquisa de usuários</title>
@@ -94,7 +94,7 @@
 				<tr th:each="usuario : ${pagina.conteudo}">
 					<td>
 						<div class="checkbox  aw-checkbox-no-margin" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
-							<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}">
+							<input type="checkbox" class="js-selecao" data-codigo="${usuario.codigo}">
 							<label></label>
 						</div>
 					</td>
@@ -133,7 +133,7 @@
 	</div>
 </section>
 <th:block layout:fragment="javascript-extra">
-	<script th:src="@{/javascripts/multiselecao.js}"></script>
+	<script th:src="@{/javascripts/multisselecao.js}"></script>
 </th:block>
 </body>
 </html>

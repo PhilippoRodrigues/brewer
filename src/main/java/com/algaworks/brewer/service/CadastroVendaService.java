@@ -46,12 +46,11 @@ public class CadastroVendaService {
 		salvar(venda);
 	}
 
-	@PreAuthorize("#venda.usuario == principal.usuario")
+	@PreAuthorize("#venda.usuario == authentication.principal or hasRole('CANCELAR_VENDA')")
 	@Transactional
 	public void cancelar(Venda venda) {
-		Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(null);
+		Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(venda);
 
-		assert vendaExistente != null;
 		vendaExistente.setStatus(StatusVenda.CANCELADA);
 		vendas.save(vendaExistente);
 	}

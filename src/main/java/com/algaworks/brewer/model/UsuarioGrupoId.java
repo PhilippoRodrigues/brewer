@@ -19,6 +19,22 @@ public class UsuarioGrupoId implements Serializable {
 	@JoinColumn(name = "codigo_grupo")
 	private Grupo grupo;
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
