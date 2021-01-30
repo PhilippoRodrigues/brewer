@@ -14,4 +14,6 @@ public interface EstilosQueries {
 	Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable);
 	
 	List<EstiloDTO> porNome(String nome);
+
+    Estilo buscarPorCodigo(Long codigo);
 }

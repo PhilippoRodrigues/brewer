@@ -2,6 +2,8 @@ package com.algaworks.brewer.service;
 
 import java.util.Optional;
 
+import com.algaworks.brewer.model.Cidade;
+import com.algaworks.brewer.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +29,4 @@ public class CadastroEstiloService {
 		
 		return estilos.saveAndFlush(estilo);
 	}
-
 }

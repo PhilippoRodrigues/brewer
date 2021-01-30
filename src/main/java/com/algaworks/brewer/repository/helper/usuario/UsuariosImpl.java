@@ -68,16 +68,6 @@ public class UsuariosImpl implements UsuariosQueries {
 		return (Usuario) criteria.uniqueResult();
 	}
 
-//	@Transactional(readOnly = true)
-//	@Override
-//	public Usuario buscarPorCodigo(Long codigo) {
-//		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
-//		criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
-//		criteria.add(Restrictions.eq("codigo", codigo));
-//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//		return (Usuario) criteria.uniqueResult();
-//	}
-
 	private Long total(UsuarioFilter filtro) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);

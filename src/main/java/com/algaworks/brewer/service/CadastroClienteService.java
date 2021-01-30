@@ -1,7 +1,5 @@
 package com.algaworks.brewer.service;
 
-import java.util.Optional;
-
 import com.algaworks.brewer.model.Cidade;
 import com.algaworks.brewer.repository.Cidades;
 import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;

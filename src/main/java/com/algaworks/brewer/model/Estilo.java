@@ -46,6 +46,10 @@ public class Estilo implements Serializable {
 		this.nome = nome;
 	}
 
+	public boolean isNovo(){
+		return this.codigo == null;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

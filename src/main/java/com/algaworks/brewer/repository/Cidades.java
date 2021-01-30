@@ -18,5 +18,5 @@ public interface Cidades extends JpaRepository<Cidade, Long>, CidadesQueries {
 	Optional<Cidade> findByNomeAndEstado(String nome, Estado estado);
 
 	@Query("select c from Cidade c join fetch c.estado where c.codigo = :codigo")
-	public Cidade findByCodigoFetchingEstado(@Param("codigo") Long codigo);
+	Cidade findByCodigoFetchingEstado(@Param("codigo") Long codigo);
 }
