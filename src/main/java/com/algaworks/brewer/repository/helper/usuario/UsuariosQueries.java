@@ -20,4 +20,5 @@ public interface UsuariosQueries {
 
 	Usuario buscarComGrupos(Long codigo);
 
+//    Usuario buscarPorCodigo(Long codigo);
 }

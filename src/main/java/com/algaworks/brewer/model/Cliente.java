@@ -126,9 +126,12 @@ public class Cliente implements Serializable {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
 	public String getCpfCnpjSemFormatacao() {
 		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+
+	public boolean isNovo() {
+		return codigo == null;
 	}
 
 	@Override

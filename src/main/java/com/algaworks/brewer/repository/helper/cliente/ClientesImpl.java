@@ -14,6 +14,10 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.algaworks.brewer.model.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,10 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.algaworks.brewer.dto.ClienteDTO;
-import com.algaworks.brewer.model.Cidade;
-import com.algaworks.brewer.model.Cliente;
-import com.algaworks.brewer.model.Endereco;
-import com.algaworks.brewer.model.Estado;
 import com.algaworks.brewer.repository.filter.ClienteFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
@@ -58,6 +58,15 @@ public class ClientesImpl implements ClientesQueries {
 		typedQuery = (TypedQuery<Cliente>) paginacaoUtil.prepararIntervalo(typedQuery, pageable);
 
 		return new PageImpl<>(typedQuery.getResultList(), pageable, total(filtro));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Cliente buscarPorCodigo(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (Cliente) criteria.uniqueResult();
 	}
 
 	private Long total(ClienteFilter filtro) {

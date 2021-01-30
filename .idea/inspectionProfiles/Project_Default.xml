@@ -14,7 +14,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="11">
+          <list size="12">
             <item index="0" class="java.lang.String" itemvalue="brewer:classforerror" />
             <item index="1" class="java.lang.String" itemvalue="data:valor" />
             <item index="2" class="java.lang.String" itemvalue="data:url" />
@@ -26,6 +26,7 @@
             <item index="8" class="java.lang.String" itemvalue="data:codigo-cerveja" />
             <item index="9" class="java.lang.String" itemvalue="data:valor-total" />
             <item index="10" class="java.lang.String" itemvalue="data:status" />
+            <item index="11" class="java.lang.String" itemvalue="data:documento" />
           </list>
         </value>
       </option>

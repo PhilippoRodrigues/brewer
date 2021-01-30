@@ -4,17 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,8 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.algaworks.brewer.validation.AtributoConfirmacao;
 
-@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha"
-		, message = "Confirmação da senha não confere")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha",
+		message = "Confirmação da senha não confere")
 @Entity
 @Table(name = "usuario")
 @DynamicUpdate
@@ -52,8 +42,8 @@ public class Usuario implements Serializable {
 
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
-			, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"),
+			inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
 
 	@Column(name = "data_nascimento")

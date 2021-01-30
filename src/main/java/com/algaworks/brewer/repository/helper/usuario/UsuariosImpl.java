@@ -7,11 +7,10 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
+import com.algaworks.brewer.model.*;
+import com.algaworks.brewer.repository.filter.UsuarioFilter;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -28,10 +27,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.algaworks.brewer.model.Grupo;
-import com.algaworks.brewer.model.Usuario;
-import com.algaworks.brewer.model.UsuarioGrupo;
-import com.algaworks.brewer.repository.filter.UsuarioFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class UsuariosImpl implements UsuariosQueries {
@@ -72,6 +67,16 @@ public class UsuariosImpl implements UsuariosQueries {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (Usuario) criteria.uniqueResult();
 	}
+
+//	@Transactional(readOnly = true)
+//	@Override
+//	public Usuario buscarPorCodigo(Long codigo) {
+//		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+//		criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
+//		criteria.add(Restrictions.eq("codigo", codigo));
+//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		return (Usuario) criteria.uniqueResult();
+//	}
 
 	private Long total(UsuarioFilter filtro) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
