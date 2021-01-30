@@ -18,10 +18,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.math.BigDecimal;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class VendasImpl implements VendasQueries {
 
@@ -58,6 +59,40 @@ public class VendasImpl implements VendasQueries {
         criteria.add(Restrictions.eq("codigo", codigo));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return (Venda) criteria.uniqueResult();
+    }
+
+    //Busca realizada com JPQL
+    @Override
+    public BigDecimal valorTotalNoAno() {
+        Optional<BigDecimal> optional = Optional.ofNullable(
+                manager.createQuery("select sum(valorTotal) from Venda where year(dataCriacao) = :ano and status = :status",
+                        BigDecimal.class)
+                .setParameter("ano", Year.now().getValue())
+                .setParameter("status", StatusVenda.EMITIDA)
+                .getSingleResult());
+        return optional.orElse(BigDecimal.ZERO);
+    }
+
+    @Override
+    public BigDecimal valorTotalNoMes() {
+        Optional<BigDecimal> optional = Optional.ofNullable(
+                manager.createQuery("select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status",
+                        BigDecimal.class)
+                        .setParameter("mes", MonthDay.now().getMonthValue())
+                        .setParameter("status", StatusVenda.EMITIDA)
+                        .getSingleResult());
+        return optional.orElse(BigDecimal.ZERO);
+    }
+
+    @Override
+    public BigDecimal valorTicketMedioNoAno() {
+        Optional<BigDecimal> optional = Optional.ofNullable(
+                manager.createQuery("select sum(valorTotal)/count(*) from Venda where year(dataCriacao) = :ano and status = :status",
+                        BigDecimal.class)
+                        .setParameter("ano", Year.now().getValue())
+                        .setParameter("status", StatusVenda.EMITIDA)
+                        .getSingleResult());
+        return optional.orElse(BigDecimal.ZERO);
     }
 
     private Long total(VendaFilter filtro) {
