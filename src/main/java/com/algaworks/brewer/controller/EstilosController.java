@@ -3,7 +3,9 @@ package com.algaworks.brewer.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Cliente;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -89,5 +91,16 @@ public class EstilosController {
 		ModelAndView mv = novo(estilo);
 		mv.addObject(estilo);
 		return mv;
+	}
+
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Long codigo) {
+		try {
+			Estilo estilo = estilos.buscarPorCodigo(codigo);
+			cadastroEstiloService.excluir(estilo);
+		} catch (ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
 	}
 }
