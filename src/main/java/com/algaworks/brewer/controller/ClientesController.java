@@ -5,7 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.model.Cliente;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -106,5 +107,16 @@ public class ClientesController {
 		this.cadastroClienteService.comporDadosEndereco(cliente);
 		mv.addObject(cliente);
 		return mv;
+	}
+
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Long codigo) {
+		try {
+			Cliente cliente = clientes.buscarPorCodigo(codigo);
+			cadastroClienteService.excluir(cliente);
+		} catch (ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
 	}
 }

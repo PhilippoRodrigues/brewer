@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.algaworks.brewer.model.Cidade;
 import com.algaworks.brewer.repository.Cidades;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.repository.Clientes;
 import com.algaworks.brewer.service.exception.CpfCnpjClienteJaCadastradoException;
+
+import javax.persistence.PersistenceException;
 
 @Service
 public class CadastroClienteService {
@@ -46,4 +49,16 @@ public class CadastroClienteService {
 		cliente.getEndereco().setEstado(cidade.getEstado());
 	}
 
+	@Transactional
+    public void excluir(Cliente cliente) {
+
+		try {
+			clientes.delete(cliente);
+			clientes.flush();
+
+		} catch (PersistenceException e) {
+			throw new ImpossivelExcluirEntidadeException(
+					"Impossível apagar cliente.");
+		}
+    }
 }
