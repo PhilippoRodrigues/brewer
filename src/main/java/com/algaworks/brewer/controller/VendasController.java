@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.dto.VendaMes;
+import com.algaworks.brewer.dto.VendaPorOrigem;
 import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.Clientes;
@@ -206,6 +207,11 @@ public class VendasController {
 	@GetMapping("/totalPorMes")
 	public @ResponseBody List<VendaMes> listarVendaPorMes(){
 		return vendas.totalPorMes();
+	}
+
+	@GetMapping("/porOrigem")
+	public @ResponseBody List<VendaPorOrigem> listarVendaPorOrigem(){
+		return vendas.totalPorOrigem();
 	}
 
 	private void setUuid(Venda venda){

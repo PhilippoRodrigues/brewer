@@ -1,6 +1,7 @@
 package com.algaworks.brewer.repository.helper.venda;
 
 import com.algaworks.brewer.dto.VendaMes;
+import com.algaworks.brewer.dto.VendaPorOrigem;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
@@ -114,6 +115,25 @@ public class VendasImpl implements VendasQueries {
         }
         return vendasMes;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<VendaPorOrigem> totalPorOrigem() {
+        List<VendaPorOrigem> vendaPorOrigem = manager.createNamedQuery("Vendas.porOrigem", VendaPorOrigem.class).getResultList();
+
+        LocalDate hoje = LocalDate.now();
+        for (int i = 1; i <= 6; i++){
+            String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+            boolean origemMes = vendaPorOrigem.stream().anyMatch(v -> v.getMes().equals(mesIdeal));
+
+            if (!origemMes)
+                vendaPorOrigem.add(i - 1, new VendaPorOrigem(mesIdeal, 0, 0));
+
+            hoje = hoje.minusMonths(1);
+        }
+        return vendaPorOrigem;
+    }
+
 
     private Long total(VendaFilter filtro) {
         CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();

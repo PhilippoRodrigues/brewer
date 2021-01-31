@@ -1,6 +1,7 @@
 package com.algaworks.brewer.repository.helper.venda;
 
 import com.algaworks.brewer.dto.VendaMes;
+import com.algaworks.brewer.dto.VendaPorOrigem;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import org.springframework.data.domain.Page;
@@ -24,4 +25,6 @@ public interface VendasQueries {
     BigDecimal valorTicketMedioNoAno();
 
     List<VendaMes> totalPorMes();
+
+    List<VendaPorOrigem> totalPorOrigem();
 }
