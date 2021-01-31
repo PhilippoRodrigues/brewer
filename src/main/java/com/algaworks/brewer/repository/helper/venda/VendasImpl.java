@@ -1,5 +1,6 @@
 package com.algaworks.brewer.repository.helper.venda;
 
+import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
@@ -23,6 +24,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class VendasImpl implements VendasQueries {
 
@@ -93,6 +95,24 @@ public class VendasImpl implements VendasQueries {
                         .setParameter("status", StatusVenda.EMITIDA)
                         .getSingleResult());
         return optional.orElse(BigDecimal.ZERO);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<VendaMes> totalPorMes() {
+        List<VendaMes> vendasMes = manager.createNamedQuery("Vendas.totalPorMes").getResultList();
+
+        LocalDate hoje = LocalDate.now();
+        for (int i = 1; i <= 6; i++){
+            String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+            boolean possuiMes = vendasMes.stream().anyMatch(v -> v.getMes().equals(mesIdeal));
+
+            if (!possuiMes)
+                vendasMes.add(i - 1, new VendaMes(mesIdeal, 0));
+
+            hoje = hoje.minusMonths(1);
+        }
+        return vendasMes;
     }
 
     private Long total(VendaFilter filtro) {

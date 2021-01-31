@@ -1,8 +1,10 @@
 package com.algaworks.brewer.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
+import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.*;
 import com.algaworks.brewer.repository.Clientes;
@@ -199,6 +201,11 @@ public class VendasController {
 		ModelAndView mv = nova(venda);
 		mv.addObject(venda);
 		return mv;
+	}
+
+	@GetMapping("/totalPorMes")
+	public @ResponseBody List<VendaMes> listarVendaPorMes(){
+		return vendas.totalPorMes();
 	}
 
 	private void setUuid(Venda venda){
