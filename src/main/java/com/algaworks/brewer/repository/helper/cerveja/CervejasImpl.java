@@ -1,8 +1,11 @@
 package com.algaworks.brewer.repository.helper.cerveja;
 
+import java.math.BigDecimal;
 import java.security.cert.Certificate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +16,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.algaworks.brewer.dto.CervejaDTO;
+import com.algaworks.brewer.dto.ValorItensEstoque;
+import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -61,6 +66,12 @@ public class CervejasImpl implements CervejasQueries {
 		criteria.add(Restrictions.eq("codigo", codigo));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (Cerveja) criteria.uniqueResult();
+	}
+
+	@Override
+	public ValorItensEstoque valorItensEstoque() {
+		String jpql = "select new com.algaworks.brewer.dto.ValorItensEstoque(sum(valor * quantidadeEstoque), sum(quantidadeEstoque)) from Cerveja";
+		return manager.createQuery(jpql, ValorItensEstoque.class).getSingleResult();
 	}
 
 	private Long total(CervejaFilter filtro) {

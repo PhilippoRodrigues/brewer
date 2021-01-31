@@ -3,7 +3,7 @@ package com.algaworks.brewer.repository.helper.cerveja;
 import java.util.List;
 
 import com.algaworks.brewer.dto.CervejaDTO;
-import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.dto.ValorItensEstoque;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +18,5 @@ public interface CervejasQueries {
 
 	Cerveja buscarPorCodigo(Long codigo);
 
+    ValorItensEstoque valorItensEstoque();
 }
