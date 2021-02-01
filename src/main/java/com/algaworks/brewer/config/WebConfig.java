@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import com.algaworks.brewer.config.format.BigDecimalFormatter;
 import com.google.common.cache.CacheBuilder;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.BeansException;
@@ -107,10 +108,12 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new GrupoConverter());
 
-		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
+//		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
+		BigDecimalFormatter bigDecimalFormatter = new BigDecimalFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 
-		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+//		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+		BigDecimalFormatter integerFormatter = new BigDecimalFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
 
 		// API de Datas do Java 8
@@ -122,10 +125,10 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
 		return conversionService;
 	}
 
-	@Bean
-	public LocaleResolver localeResolver() {
-		return new FixedLocaleResolver(new Locale("pt", "BR"));
-	}
+//	@Bean
+//	public LocaleResolver localeResolver() {
+//		return new FixedLocaleResolver(new Locale("pt", "BR"));
+//	}
 
 	@Bean
 	public CacheManager cacheManager() {
