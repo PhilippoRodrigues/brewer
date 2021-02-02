@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="brewer-1.0.0-SNAPSHOT.war">
+    <root id="archive" name="brewer.war">
       <element id="artifact" artifact-name="brewer:war exploded" />
     </root>
   </artifact>
