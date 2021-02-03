@@ -19,6 +19,7 @@ import com.algaworks.brewer.dto.CervejaDTO;
 import com.algaworks.brewer.dto.ValorItensEstoque;
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Usuario;
+import com.algaworks.brewer.storage.FotoStorage;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -41,6 +42,9 @@ public class CervejasImpl implements CervejasQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
+
+	@Autowired
+	private FotoStorage fotoStorage;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -137,8 +141,17 @@ public class CervejasImpl implements CervejasQueries {
 		String jpql = "select new com.algaworks.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) "
 				+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)";
 
-		return manager.createQuery(jpql, CervejaDTO.class)
-					.setParameter("skuOuNome", skuOuNome + "%")
-					.getResultList();
+//		return manager.createQuery(jpql, CervejaDTO.class)
+//					.setParameter("skuOuNome", skuOuNome + "%")
+//					.getResultList();
+
+		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql, CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome + "%").getResultList();
+
+		cervejasFiltradas.forEach(
+				c -> c.setUrlThumbnailFoto(
+						fotoStorage.getUrl(FotoStorage.THUMBNAIL_PREFIX + c.getFoto())));
+
+		return cervejasFiltradas;
 	}
 }

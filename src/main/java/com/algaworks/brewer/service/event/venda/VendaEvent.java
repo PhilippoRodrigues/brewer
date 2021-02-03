@@ -4,7 +4,7 @@ import com.algaworks.brewer.model.Venda;
 
 public class VendaEvent {
 
-    private Venda venda;
+    private final Venda venda;
 
     public VendaEvent(Venda venda) {
         this.venda = venda;

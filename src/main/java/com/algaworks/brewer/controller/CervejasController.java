@@ -78,8 +78,7 @@ public class CervejasController {
 	}
 
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	List<CervejaDTO> pesquisar(String skuOuNome) {
+	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
 		return cervejas.porSkuOuNome(skuOuNome);
 	}
 

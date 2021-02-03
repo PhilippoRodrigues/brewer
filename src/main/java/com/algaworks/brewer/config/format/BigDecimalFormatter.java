@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class BigDecimalFormatter implements Formatter<BigDecimal> {
 
-    private DecimalFormat decimalFormat;
+    private final DecimalFormat decimalFormat;
 
     public BigDecimalFormatter(String pattern){
         NumberFormat numberFormat = NumberFormat.getInstance(new Locale("pt", "BR"));
