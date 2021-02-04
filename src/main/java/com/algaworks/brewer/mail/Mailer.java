@@ -1,6 +1,7 @@
 package com.algaworks.brewer.mail;
 
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.model.ItemVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.storage.FotoStorage;
@@ -67,7 +68,7 @@ public class Mailer {
                     mimeMessage, true, "UTF-8");
 
             helper.setFrom("testeparaocursodaalgaworks@gmail.com");
-            //helper.setTo(venda.getCliente().getEmail());
+//            helper.setTo(venda.getCliente().getEmail());
             helper.setTo("pipophilippo@gmail.com");
             helper.setSubject(String.format("Brewer - Venda nº %d", venda.getCodigo()));
             helper.setText(email, true);
