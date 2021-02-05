@@ -16,7 +16,9 @@
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/config/init/AppInitializer.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/model/UsuarioGrupoId.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/service/CadastroEstiloService.java
+/Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/storage/s3/FotoStorageS3.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/model/Endereco.java
+/Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/config/S3Config.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/thymeleaf/processor/ClassForErrorAttributeTagProcessor.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/service/exception/CidadeJaCadastradaException.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/config/SecurityConfig.java
@@ -65,7 +67,6 @@
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/model/ItemVenda.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/model/validation/group/CnpjGroup.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/Grupos.java
-/Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/service/event/cerveja/CervejaSalvaEvent.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/controller/validator/VendaValidator.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/thymeleaf/processor/MessageElementTagProcessor.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/filter/CidadeFilter.java
@@ -75,6 +76,7 @@
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/session/TabelasItensSession.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/mail/Mailer.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/validation/validator/AtributoConfirmacaoValidator.java
+/Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/listener/CervejaEntityListener.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/config/init/SecurityInitializer.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/controller/VendasController.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/helper/cidade/CidadesImpl.java
@@ -109,7 +111,6 @@
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/filter/CervejaFilter.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/Usuarios.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/service/exception/NomeEstiloJaCadastradoException.java
-/Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/service/event/cerveja/CervejaListener.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/model/Sabor.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/config/ServiceConfig.java
 /Users/philipporodrigues/Documents/Dev/java-workspace/brewer/src/main/java/com/algaworks/brewer/repository/Estados.java

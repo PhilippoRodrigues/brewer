@@ -4,3 +4,11 @@
 /src/main/resources/rebel-remote.xml
 /src/main/resources/rebel.xml
 .idea
+.DS_Store
+Servers/*
+.metadata
+.settings
+.project
+/bin/
+.mvn*
+mvnw*
