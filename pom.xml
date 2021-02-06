@@ -32,7 +32,7 @@
 		<thumbnailator.version>0.4.11</thumbnailator.version>
 		
 		<!-- AWS SDK - S3 -->
-		<aws-java-sdk-s3.version>1.10.77</aws-java-sdk-s3.version>
+		<aws-java-sdk-s3.version>1.11.949</aws-java-sdk-s3.version>
 		
 	</properties>
 

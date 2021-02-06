@@ -152,7 +152,7 @@ public class VendasController {
 	public ModelAndView pesquisar(VendaFilter vendaFilter, @PageableDefault(size=3) Pageable pageable,
 								  HttpServletRequest httpServletRequest) {
 
-		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
+		ModelAndView mv = new ModelAndView("/venda/PesquisaVendas");
 
 		mv.addObject("todosStatus", StatusVenda.values());
 		mv.addObject("tiposPessoa", TipoPessoa.values());
@@ -170,7 +170,7 @@ public class VendasController {
 			try {
 				cadastroVendaService.cancelar(venda);
 			}catch (AccessDeniedException e){
-				ModelAndView mv = new ModelAndView("/403");
+				ModelAndView mv = new ModelAndView("error");
 				mv.addObject("status", 403);
 				return mv;
 			}
