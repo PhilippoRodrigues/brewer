@@ -30,7 +30,7 @@ public class CadastroVendaService {
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());
 		} else {
-			Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(null);
+			Venda vendaExistente = vendas.getOne(venda.getCodigo());
 			assert vendaExistente != null;
 			venda.setDataCriacao(vendaExistente.getDataCriacao());
 		}
@@ -55,7 +55,7 @@ public class CadastroVendaService {
 	@PreAuthorize("#venda.usuario == authentication.principal or hasRole('CANCELAR_VENDA')")
 	@Transactional
 	public void cancelar(Venda venda) {
-		Venda vendaExistente = vendas.findById(venda.getCodigo()).orElse(venda);
+		Venda vendaExistente = vendas.getOne(venda.getCodigo());
 
 		vendaExistente.setStatus(StatusVenda.CANCELADA);
 		vendas.save(vendaExistente);

@@ -1,20 +1,15 @@
 package com.algaworks.brewer.config;
 
-import com.algaworks.brewer.mail.Mailer;
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.Properties;
-
 @Configuration
-@ComponentScan(basePackageClasses = Mailer.class)
-@PropertySource(value = {"classpath:env/mail-${ambiente:local}.properties"})
 public class MailConfig {
 
     @Autowired
@@ -26,7 +21,7 @@ public class MailConfig {
 
         mailSender.setHost("smtp.sendgrid.net");
         mailSender.setPort(587);
-        mailSender.setUsername(env.getProperty("username"));
+        mailSender.setUsername(env.getProperty("brewer.mail.username"));
         mailSender.setPassword(env.getProperty("SENDGRID_PASSWORD"));
 
         Properties props = new Properties();

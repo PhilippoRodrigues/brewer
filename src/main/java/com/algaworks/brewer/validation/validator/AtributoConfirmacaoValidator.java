@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 
 import com.algaworks.brewer.validation.AtributoConfirmacao;
 
@@ -25,8 +25,8 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 		boolean valido = false;
 		
 		try {
-			Object valorAtributo = BeanUtils.getProperty(object, this.atributo);
-			Object valorAtributoConfirmacao = BeanUtils.getProperty(object, this.atributoConfirmacao);
+			Object valorAtributo = BeanUtils.getPropertyDescriptor((Class<?>) object, this.atributo);
+			Object valorAtributoConfirmacao = BeanUtils.getPropertyDescriptor((Class<?>) object, this.atributoConfirmacao);
 			
 			valido = ambosSaoNull(valorAtributo, valorAtributoConfirmacao) || 
 					ambosSaoIguais(valorAtributo, valorAtributoConfirmacao);

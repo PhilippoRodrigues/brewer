@@ -1,5 +1,6 @@
 package com.algaworks.brewer.model;
 
+
 import java.io.Serializable;
 import java.util.List;
 

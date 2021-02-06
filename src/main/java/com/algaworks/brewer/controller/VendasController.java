@@ -3,15 +3,8 @@ package com.algaworks.brewer.controller;
 import java.util.List;
 import java.util.UUID;
 
-import com.algaworks.brewer.controller.page.PageWrapper;
-import com.algaworks.brewer.dto.VendaMes;
-import com.algaworks.brewer.dto.VendaPorOrigem;
-import com.algaworks.brewer.mail.Mailer;
-import com.algaworks.brewer.model.*;
-import com.algaworks.brewer.repository.Clientes;
-import com.algaworks.brewer.repository.Vendas;
-import com.algaworks.brewer.repository.filter.ClienteFilter;
-import com.algaworks.brewer.repository.filter.VendaFilter;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,18 +13,32 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.controller.validator.VendaValidator;
+import com.algaworks.brewer.dto.VendaMes;
+import com.algaworks.brewer.dto.VendaPorOrigem;
+import com.algaworks.brewer.mail.Mailer;
+import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.model.ItemVenda;
+import com.algaworks.brewer.model.StatusVenda;
+import com.algaworks.brewer.model.TipoPessoa;
+import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Cervejas;
+import com.algaworks.brewer.repository.Vendas;
+import com.algaworks.brewer.repository.filter.VendaFilter;
 import com.algaworks.brewer.security.UsuarioSistema;
 import com.algaworks.brewer.service.CadastroVendaService;
 import com.algaworks.brewer.session.TabelasItensSession;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/vendas")
@@ -49,11 +56,6 @@ public class VendasController {
 	private CadastroVendaService cadastroVendaService;
 	@Autowired
 	private VendaValidator vendaValidator;
-	
-	@InitBinder("venda")
-	public void inicializarValidador(WebDataBinder binder) {
-		binder.setValidator(vendaValidator);
-	}
 	
 	@GetMapping("/nova")
 	public ModelAndView nova(Venda venda) {
@@ -121,7 +123,7 @@ public class VendasController {
 
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-		Cerveja cerveja = cervejas.findById(codigoCerveja).orElse(null);
+		Cerveja cerveja = cervejas.getOne(codigoCerveja);
 		tabelaItens.adicionarItem(uuid, cerveja, 1);
 		return mvTabelaItensVenda(uuid);
 	}
@@ -168,7 +170,9 @@ public class VendasController {
 			try {
 				cadastroVendaService.cancelar(venda);
 			}catch (AccessDeniedException e){
-				return new ModelAndView("/403");
+				ModelAndView mv = new ModelAndView("/403");
+				mv.addObject("status", 403);
+				return mv;
 			}
 
 			attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso!");
@@ -215,7 +219,7 @@ public class VendasController {
 	}
 
 	private void setUuid(Venda venda){
-		if (StringUtils.isEmpty(venda.getUuid())) {
+		if (!StringUtils.hasText(venda.getUuid())) {
 			venda.setUuid(UUID.randomUUID().toString());
 		}
 	}

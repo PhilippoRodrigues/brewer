@@ -3,17 +3,30 @@ package com.algaworks.brewer.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.algaworks.brewer.repository.listener.CervejaEntityListener;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.repository.listener.CervejaEntityListener;
 import com.algaworks.brewer.validation.SKU;
 
 @EntityListeners(CervejaEntityListener.class)
@@ -194,10 +207,12 @@ public class Cerveja implements Serializable {
 		this.contentType = contentType;
 	}
 
+	@SuppressWarnings("deprecation")
 	public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean temFoto() {
 		return !StringUtils.isEmpty(this.foto);
 	}
