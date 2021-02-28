@@ -1,10 +1,23 @@
 package com.algaworks.brewer.repository.helper.venda;
 
-import com.algaworks.brewer.dto.VendaMes;
-import com.algaworks.brewer.dto.VendaPorOrigem;
-import com.algaworks.brewer.model.*;
-import com.algaworks.brewer.repository.filter.VendaFilter;
-import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -16,16 +29,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.math.BigDecimal;
-import java.time.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.algaworks.brewer.dto.VendaMes;
+import com.algaworks.brewer.dto.VendaPorOrigem;
+import com.algaworks.brewer.model.StatusVenda;
+import com.algaworks.brewer.model.Venda;
+import com.algaworks.brewer.repository.filter.VendaFilter;
+import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class VendasImpl implements VendasQueries {
 
