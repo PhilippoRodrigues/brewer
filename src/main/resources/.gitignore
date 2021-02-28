@@ -1,1 +1,11 @@
-/application.properties
+/src/main/resources/env/
+/src/main/resources/application.properties
+.idea
+.DS_Store
+Servers/*
+.metadata
+.settings
+.project
+/bin/
+.mvn*
+mvnw*
