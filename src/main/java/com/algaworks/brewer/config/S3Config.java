@@ -30,7 +30,8 @@ public class S3Config {
                 Objects.requireNonNull(
                         environment.getProperty("AWSAccessKeyId")),
                 Objects.requireNonNull(environment.getProperty("AWSSecretKey")));
-        AmazonS3 amazonS3 = new AmazonS3Client(credenciais, new ClientConfiguration());
+        @SuppressWarnings("deprecation")
+		AmazonS3 amazonS3 = new AmazonS3Client(credenciais, new ClientConfiguration());
         Region regiao = Region.getRegion(Regions.US_EAST_1);
         amazonS3.setRegion(regiao);
         return amazonS3;
