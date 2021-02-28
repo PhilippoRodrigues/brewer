@@ -2,10 +2,8 @@ package com.algaworks.brewer.service;
 
 import java.util.Optional;
 
-import com.algaworks.brewer.model.Cerveja;
-import com.algaworks.brewer.model.Venda;
-import com.algaworks.brewer.repository.Vendas;
-import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,8 @@ import org.springframework.util.StringUtils;
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Usuarios;
 import com.algaworks.brewer.service.exception.EmailUsuarioJaCadastradoException;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import com.algaworks.brewer.service.exception.SenhaObrigatoriaUsuarioException;
-
-import javax.persistence.PersistenceException;
 
 @Service
 public class CadastroUsuarioService {
@@ -33,13 +30,13 @@ public class CadastroUsuarioService {
 			throw new EmailUsuarioJaCadastradoException("E-mail já cadastrado");
 		}
 
-		if (usuario.isNovo() && StringUtils.isEmpty(usuario.getSenha())) {
+		if (usuario.isNovo() && !StringUtils.hasText(usuario.getSenha())) {
 			throw new SenhaObrigatoriaUsuarioException("Senha é obrigatória para novo usuário");
 		}
 
-		if (usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())) {
+		if (usuario.isNovo() || !StringUtils.hasText(usuario.getSenha())) {
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-		} else if (StringUtils.isEmpty(usuario.getSenha())) {
+		} else if (!StringUtils.hasText(usuario.getSenha())) {
 			usuario.setSenha(usuarioExistente.get().getSenha());
 		}
 		usuario.setConfirmacaoSenha(usuario.getSenha());

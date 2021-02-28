@@ -1,10 +1,10 @@
 package com.algaworks.brewer.storage.s3;
 
-import com.algaworks.brewer.storage.FotoStorage;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
-import com.amazonaws.util.IOUtils;
-import net.coobird.thumbnailator.Thumbnails;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.algaworks.brewer.storage.FotoStorage;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+import com.amazonaws.services.s3.model.GroupGrantee;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.Permission;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.util.IOUtils;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Profile("prod")
 @Component
 public class FotoStorageS3 implements FotoStorage {
 
-    Class clazz;
     private static final Logger logger = LoggerFactory.getLogger(FotoStorageS3.class);
 
     private static final String BUCKET = "awsbrewer";
@@ -72,7 +78,8 @@ public class FotoStorageS3 implements FotoStorage {
         amazonS3.deleteObjects(new DeleteObjectsRequest(BUCKET)
                     .withKeys(foto, THUMBNAIL_PREFIX + foto));
     }
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public String getUrl(String foto) {
 
         if (!StringUtils.isEmpty(foto))

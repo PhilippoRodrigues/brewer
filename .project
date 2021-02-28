@@ -64,6 +64,5 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
-		<nature>org.thymeleaf.extras.eclipse.core.ThymeleafNature</nature>
 	</natures>
 </projectDescription>
