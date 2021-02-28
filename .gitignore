@@ -1,6 +1,7 @@
 /target/
 
 /src/main/resources/env/
+/src/main/resources/application.properties
 .idea
 .DS_Store
 Servers/*
