@@ -17,7 +17,7 @@ Persistência no banco de dados utilizando Flyway (migrations).
   <li>Deploy na nuvem;</li>
   <li>Criação de Dashboard com consultas avançadas e gráficos;</li>
   <li>Envio de e-mails e chamadas assíncronas;</li>
-  <li>nternacionalização do sistema;</li>
+  <li>Internacionalização do sistema;</li>
   <li>Upload de fotos com retorno assíncrono.</li>
 </ul>
 
